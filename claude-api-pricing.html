@@ -3,20 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude API Pricing: Model Costs, Token Rates, and Batch Discounts</title>
+<title>Claude API Pricing: Model Costs, Token Rates, and Batch Discounts | ApiFluxAI</title>
 <meta name="description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
-<link rel="canonical" href="https://your-domain.com/claude-api-pricing">
+<link rel="canonical" href="https://apiflux.ai/blog/claude-api-pricing">
 <!-- Open Graph -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="Claude API Pricing: Model Costs, Token Rates, and Batch Discounts">
 <meta property="og:description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
-<meta property="og:url" content="https://your-domain.com/claude-api-pricing">
-<meta property="og:image" content="https://your-domain.com/og/claude-api-pricing.png">
+<meta property="og:url" content="https://apiflux.ai/blog/claude-api-pricing">
+<meta property="og:image" content="https://apiflux.ai/blog/claude-api-pricing.webp">
 <meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="ApiFluxAI">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Claude API Pricing: Model Costs, Token Rates, and Batch Discounts">
+<meta name="twitter:site" content="@apiflux_ai">
+<meta name="twitter:creator" content="@apiflux_ai">
+<meta name="twitter:title" content="Claude API Pricing: Model Costs, Token Rates, and Batch Discounts | ApiFluxAI">
 <meta name="twitter:description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
-<meta name="twitter:image" content="https://your-domain.com/og/claude-api-pricing.png">
+<meta name="twitter:image" content="https://apiflux.ai/blog/claude-api-pricing.webp">
 <meta name="robots" content="index, follow">
 <script type="application/ld+json">
 {
@@ -28,7 +31,7 @@
   "dateModified": "2026-09-04",
   "author": { "@type": "Organization", "name": "ApiFlux Editorial" },
   "publisher": { "@type": "Organization", "name": "ApiFlux", "url": "https://apiflux.ai/" },
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://your-domain.com/claude-api-pricing" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://apiflux.ai/blog/claude-api-pricing" },
   "inLanguage": "en"
 }
 </script>
@@ -178,7 +181,7 @@ Is the task predictable and easy to validate?
 <p><strong>Price:</strong> $1 input / $5 output per MTok. <strong>Good fit:</strong> Classification, extraction, routing, short transformations, and high-volume workloads with checkable output. <strong>Poor fit:</strong> Deep multi-step reasoning, or workloads where cheap responses fail validation and are retried repeatedly. <strong>Measure:</strong> Success rate, output length, retry rate, latency, review burden, and cost per accepted result.</p>
 
 <h3>Claude Sonnet 5</h3>
-<p><strong>Price:</strong> $2 input / $10 output per MTok, now standard pricing. <strong>Good fit:</strong> General assistants, coding workflows, structured generation, moderate-complexity agents. <strong>Poor fit:</strong> Workloads that fail strict validation or need long multi-step reasoning. <strong>Measure:</strong> First-pass success, retry rate, latency, output length, cost per accepted result. For coding-LLM comparisons, see our <a href="https://github.com/tom61-bl/best-llm-for-coding-2026">best LLM for coding 2026</a> guide.</p>
+<p><strong>Price:</strong> $2 input / $10 output per MTok, now standard pricing. <strong>Good fit:</strong> General assistants, coding workflows, structured generation, moderate-complexity agents. <strong>Poor fit:</strong> Workloads that fail strict validation or need long multi-step reasoning. <strong>Measure:</strong> First-pass success, retry rate, latency, output length, cost per accepted result. For coding-LLM comparisons, see our <a href="https://apiflux.ai/blog/best-llm-for-coding">best LLMs for coding 2026</a> guide on the ApiFlux blog.</p>
 
 <h3>Claude Opus 5</h3>
 <p><strong>Price:</strong> $5 input / $25 output per MTok. <strong>Good fit:</strong> Complex code changes, deeper reasoning, agentic coding, enterprise work where fewer failed attempts justify the higher rate. <strong>Poor fit:</strong> Simple, high-volume, easily validated tasks. <strong>Measure:</strong> Successful outcomes, retry burden, latency, and review effort on a fixed task set.</p>
@@ -234,7 +237,7 @@ Is the task predictable and easy to validate?
 <tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1.70 / $8.50</td></tr>
 <tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.85 / $4.25</td></tr>
 </table>
-<p><strong>Verify before production use:</strong> supported Claude model IDs, Messages API compatibility, how input/output/cache/tool usage is reported, routing effects, balance/refund/rate-limit handling, log retention, and whether the discount applies to every feature. Start at <a href="https://apiflux.ai/">apiflux.ai</a> (create a key on the <a href="https://apiflux.ai/keys">Keys page</a>), browse models at <a href="https://apiflux.ai/models">/models</a>, and check <a href="https://apiflux.ai/models/anthropic">Claude prices</a>.</p>
+<p><strong>Verify before production use:</strong> supported Claude model IDs, Messages API compatibility, how input/output/cache/tool usage is reported, routing effects, balance/refund/rate-limit handling, log retention, and whether the discount applies to every feature. Start at <a href="https://apiflux.ai/">apiflux.ai</a> (create a key on the <a href="https://apiflux.ai/keys">Keys page</a>), browse models at <a href="https://apiflux.ai/models">/models</a>, check <a href="https://apiflux.ai/models/anthropic">Claude prices</a>, and see the <a href="https://apiflux.ai/docs/api-key">API key docs</a> and <a href="https://apiflux.ai/docs/faq">FAQ</a>.</p>
 
 <h2>Monthly cost examples and sensitivity</h2>
 <table>
@@ -254,7 +257,7 @@ Is the task predictable and easy to validate?
 <li><strong>Does the Claude API have a free tier?</strong> Anthropic's documentation does not establish a permanent free API tier in the sources reviewed; check current Console billing docs. (ApiFlux separately advertises a $1 starting credit — a vendor claim.)</li>
 <li><strong>Can prompt caching reduce the bill?</strong> Yes, for eligible stable prefixes with cache hits within the TTL; not for output, variable input, or every request.</li>
 <li><strong>How much cheaper is the Message Batches API?</strong> 50% off standard token pricing, asynchronous.</li>
-<li><strong>How is Claude Code billed?</strong> It runs on the same models, so tokens are billed at these rates; confirm your billing path, caching, and limits.</li>
+<li><strong>How is Claude Code billed?</strong> It runs on the same models, so tokens are billed at these rates; confirm your billing path, caching, and limits. For endpoint setup through a gateway, see the <a href="https://apiflux.ai/docs/claude-code">ApiFlux Claude Code docs</a>.</li>
 <li><strong>Does a gateway change Anthropic's prices?</strong> It may add fees or markup; confirm separately. ApiFlux is a routing option, not proof of lower underlying rates.</li>
 <li><strong>Are prices the same on Bedrock and Vertex AI?</strong> Not necessarily; compare each platform's own official documentation.</li>
 </ol>
@@ -266,7 +269,7 @@ Is the task predictable and easy to validate?
 
 <footer>
 <p>This article does not claim an independent benchmark ranking, guaranteed savings, guaranteed availability, or a guaranteed search ranking. Model recommendations are conditional editorial guidance based on published pricing and vendor-described positioning; validate them against your own workload.</p>
-<p><em>Deployment note: replace <code>your-domain.com</code> in canonical/OG/JSON-LD with the live domain, add the OG image, and verify crawl, mobile rendering, and rich results before going live.</em></p>
+<p><em>Deployment note: publish at <code>https://apiflux.ai/blog/claude-api-pricing</code>, add the article OG image at <code>/blog/claude-api-pricing.webp</code> (1200×630), keep the site header/footer navigation consistent with other blog posts, and verify crawl, mobile rendering, sitemap, and rich results (FAQPage) before going live.</em></p>
 </footer>
 </div>
 
