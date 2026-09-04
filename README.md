@@ -1,4 +1,4 @@
-# Claude API Pricing
+﻿# Claude API Pricing
 
 A practical, source-backed guide to Claude API pricing, model costs, token rates, prompt caching, Batch API discounts, tools, limits, and operational routing.
 
@@ -8,6 +8,7 @@ A practical, source-backed guide to Claude API pricing, model costs, token rates
 - [Claude API cost calculator](claude-api-cost-calculator.html) — interactive HTML/JS monthly cost estimator
 - [claude-api-pricing.html](claude-api-pricing.html) — deployable single-page production HTML (meta/canonical/OG/JSON-LD + embedded calculator)
 - [FACTS.md](FACTS.md) — internal fact ledger (evidence type, source, check date, allowed wording, risk)
+- [assets/](assets/) — cover and section visual assets (hero 1600x900, OG 1200x630, listing 640x360, thumbnail 320x180, decision router, cache break-even, monthly cost comparison)
 
 ## Scope
 

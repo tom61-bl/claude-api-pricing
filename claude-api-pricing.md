@@ -1,4 +1,4 @@
----
+﻿---
 title: "Claude API Pricing: Model Costs, Token Rates, Caching, and Batch Discounts"
 description: "Claude API pricing explained: current per-MTok model rates, the 50% Batch discount, prompt caching costs, tools, limits, and an interactive cost calculator."
 slug: "claude-api-pricing"
@@ -19,6 +19,8 @@ keyword_volume_status: "user_supplied"
 ---
 
 # Claude API Pricing: Model Costs, Token Rates, Caching, and Batch Discounts
+
+![Claude API pricing decision matrix — model costs mapped to task complexity and cost sensitivity](assets/cover-hero-1600x900.png)
 
 As of **September 4, 2026**, Anthropic's first-party Claude API is quoted in USD per **MTok** (one million tokens), and standard input rates range from **$1 per million input tokens and $5 per million output tokens for Claude Haiku 4.5** up to **$10 per million input tokens and $50 per million output tokens for Claude Fable 5.1**. Batch processing cuts standard token prices by 50% for asynchronous workloads, and prompt caching has separate write and read pricing. Prices are time-sensitive — this snapshot is checked on September 4, 2026; recheck Anthropic's live pricing before committing to a budget.
 
@@ -127,6 +129,8 @@ For reproducible applications, record the exact model ID, prompt version, tool c
 
 ## Which Claude model should you choose?
 
+![Claude API decision router — sync vs batch/caching, then Haiku/Sonnet/Opus by predictability](assets/section-decision-router-1280x720.png)
+
 **Decision tree:**
 
 ```text
@@ -198,6 +202,8 @@ Anthropic's current pricing table lists Claude Fable 5.1 cache hits and refreshe
 At the standard multipliers, a 5-minute cache write pays off after **one** successful cache read (1.25× write vs. a second full 1× input), and a 1-hour cache write pays off after **two** successful reads (2× write vs. three 1× inputs). For example, on a model with a $2 per MTok input rate, sending the same eligible prefix three times without caching costs three base input charges; a 1-hour cache costs 2× for the initial write plus 0.1× for each of two reads, or 2.2× in total.
 
 > **Note on stacking:** Batch, caching, and data-residency modifiers can interact, but these modifiers do not make the total bill automatically predictable. Calculate each token category separately and confirm the selected model and platform's billing rules.
+
+![Prompt caching break-even — 3.0x without caching, 1.45x with 5-min cache, 2.2x with 1-hour cache](assets/section-cache-breakeven-1280x720.png)
 
 This break-even analysis assumes the prefix is long enough to be cacheable, the content before the breakpoint is unchanged, the follow-up request arrives within the TTL, and a cache hit actually occurs. Output tokens and uncached suffix tokens are excluded from this narrow comparison.
 
@@ -298,6 +304,8 @@ The illustrative monthly estimates below use the base rates above, before cache 
 | High-volume classification | Haiku 4.5 | 5,000,000 | 1,500 / 200 | ≈ $12,500 |
 | General assistant | Sonnet 5 | 500,000 | 4,000 / 800 | ≈ $8,000 |
 | Complex agentic coding | Opus 5 | 100,000 | 20,000 / 4,000 | ≈ $20,000 |
+
+![Monthly cost comparison — official vs ApiFlux 85% list price for three workloads](assets/section-monthly-cost-1280x720.png)
 
 These are illustrative figures for method demonstration only; your real bill depends on caching, tools, retries, batch use, and negotiated terms. Use them to shape the calculation, not as a quote for your workload.
 
