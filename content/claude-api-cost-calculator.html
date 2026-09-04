@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -103,7 +103,7 @@
       <div class="field">
         <label for="searches">Web searches / 1,000 requests</label>
         <input id="searches" type="number" min="0" step="1" value="0">
-        <div class="hint">Web search is $10 per 1,000 searches, plus token cost of results.</div>
+        <div class="hint">Web search is $10 per 1,000 searches (Anthropic published rate), plus token cost of results. Gateway-specific fees may differ.</div>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@
     Cached input is charged as a cache write (1.25× input for a 5-minute TTL) plus a cache read (0.1× input for most models; Fable 5.1 at 0.025×).
     Batch applies a 50% discount to input and output token charges. Retry rate scales token cost; ApiFlux estimate applies its vendor-published 85%-of-list rates.
     Tool tokens and web-search fees are added. Cost per accepted result = total cost ÷ (requests × accepted-result rate).
-    This does not include taxes, negotiated terms, server-tool execution fees, or platform-specific billing.
+    Web-search fees are modeled using Anthropic published rate; gateway-specific fees may differ. This does not include taxes, negotiated terms, server-tool execution fees, or platform-specific billing.
   </p>
 
   <footer>

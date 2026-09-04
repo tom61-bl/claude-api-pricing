@@ -1,4 +1,4 @@
-# Claude API Pricing
+﻿# Claude API Pricing
 
 A practical, source-backed guide to Claude API pricing, model costs, token rates, prompt caching, Batch API discounts, tools, limits, and operational routing.
 
@@ -22,7 +22,7 @@ A practical, source-backed guide to Claude API pricing, model costs, token rates
 │   ├── claude-api-pricing.md
 │   ├── claude-api-cost-calculator.html
 │   ├── claude-api-pricing.html
-│   └── FACTS.md
+│   └── SOURCES.md
 ```
 
 ## Contents
@@ -30,13 +30,13 @@ A practical, source-backed guide to Claude API pricing, model costs, token rates
 - [Claude API Pricing: Model Costs, Token Rates, Caching, and Batch Discounts](content/claude-api-pricing.md) — the editorial guide
 - [Claude API cost calculator](content/claude-api-cost-calculator.html) — interactive HTML/JS monthly cost estimator
 - [claude-api-pricing.html](content/claude-api-pricing.html) — deployable single-page production HTML (meta/canonical/OG/JSON-LD + embedded calculator)
-- [FACTS.md](content/FACTS.md) — internal fact ledger (evidence type, source, check date, allowed wording, risk)
+- [SOURCES.md](content/SOURCES.md) — public source ledger (claim, source, check date, allowed wording)
 
 ## Scope
 
-This repository contains the Markdown and static-page source for an editorial pricing guide. Prices, model IDs, availability, limits, and feature terms are time-sensitive. The guide was checked against Anthropic's official documentation on September 4, 2026; verify live pricing before implementation. The internal fact ledger in `content/FACTS.md` records evidence type, source, check date, and risk for every time-sensitive claim.
+This repository contains the Markdown and static-page source for an editorial pricing guide. Prices, model IDs, availability, limits, and feature terms are time-sensitive. The guide was checked against Anthropic's official documentation on September 4, 2026; verify live pricing before implementation. The public source ledger in `content/SOURCES.md` records claim, source, check date, and allowed wording for every time-sensitive claim.
 
-ApiFlux is mentioned because it operates the publishing project. Its pricing, feature, and discount statements are **vendor-published claims** (one key for 100+ models, native Anthropic/OpenAI/Gemini-compatible endpoints, automatic failover, transparent per-token billing, 85% of official list price, a $1 starting credit, and zero data retention). ApiFlux's listed Claude prices and URLs (apiflux.ai, /keys, /models, /models/anthropic) were verified on September 4, 2026. The 85%-of-list and $1-credit figures are vendor positioning, not independent benchmark results; its privacy and retention terms are marked `needs_review` in FACTS.md.
+ApiFlux is mentioned because it operates the publishing project. Its pricing, feature, and discount statements are **vendor-published claims** (one key for 100+ models, native Anthropic/OpenAI/Gemini-compatible endpoints, automatic failover, transparent per-token billing, 85% of official list price, a $1 starting credit, and zero data retention). ApiFlux's listed Claude prices and URLs (apiflux.ai, /keys, /models, /models/anthropic) were verified on September 4, 2026. The 85%-of-list and $1-credit figures are vendor positioning, not independent benchmark results; review its current privacy and retention terms before relying on the zero-data-retention claim.
 
 ## Production publishing note
 

@@ -246,9 +246,17 @@ Treat the batch figures as calculated examples based on the published 50% discou
 
 The Batch API also has operational constraints. Requests are processed independently, results are **not guaranteed to preserve input order**, and streaming, fast mode, and `max_tokens: 0` are not supported. Use unique `custom_id` values and build a result-matching strategy around those IDs.
 
-## Claude API vs Claude subscription
+## Claude API pricing vs Claude subscription pricing
 
 The Claude **API** is pay-as-you-go: you are billed for the tokens and features your application uses. It is not a prepaid bundle of a consumer or team subscription, and a subscription should not be treated as prepaid API credits.
+
+| Option | Billing model | Best for |
+|---|---|---|
+| Claude API | Per-MTok token usage + feature fees | Applications, services, automation, integrations |
+| Claude Pro | Monthly subscription with usage limits | Individual users |
+| Claude Max | Higher-tier subscription with higher limits | High-frequency individual users |
+| Team / Enterprise | Team subscriptions with seats | Organizations |
+| Claude Code + Console | Depends on Console/API billing path | Development teams |
 
 Separate Claude consumer or team plans (for example, the chat/desktop subscription tiers) buy product access, not API capacity. If you are building an application, plan for API token costs, spend limits, and rate limits separately from any Claude subscription you hold.
 
@@ -279,7 +287,7 @@ Partner platforms can use different billing units, regional pricing, model IDs, 
 
 **What ApiFlux advertises.** ApiFlux's public site presents it as an AI router and gateway that gives you one API key for 100+ frontier models, including Claude, GPT, Gemini, DeepSeek, Qwen, and Kimi. It advertises native Anthropic, OpenAI, and Gemini-compatible endpoints, automatic failover, transparent per-token billing, one shared balance, and usage monitoring. For compatible clients, connecting may require only a base-URL and key change — but confirm the endpoint and model IDs your code uses before assuming no other changes are needed.
 
-**Vendor claims to treat as unverified.** ApiFlux advertises pricing at **85% of the maker's official list price** (its listed Claude prices, checked September 4, 2026, are shown below) and currently advertises a **$1 starting credit** on signup without a credit card. These are vendor-published commercial claims, not independently audited savings results. ApiFlux also describes **zero data retention**; review the current privacy and retention terms, and test failover behavior with your own workload, before relying on either claim.
+**Vendor claims to treat as unverified.** ApiFlux advertises pricing at **85% of the maker's official list price** (its listed Claude prices, checked September 4, 2026, are shown below) and currently advertises a **$1 starting credit** on signup without a credit card. These are vendor-published commercial claims, not independently audited savings results. ApiFlux describes zero data retention in its public materials. Review the current privacy and retention terms before sending sensitive prompts, and test failover behavior with your own workload before relying on either claim.
 
 | Model | Anthropic first-party (in / out per MTok) | ApiFlux listed price (in / out per MTok) |
 |---|---:|---:|
@@ -353,7 +361,7 @@ Anthropic documents a 50% discount versus standard API pricing for the Message B
 
 ### How is Claude Code billed relative to the Claude API?
 
-Claude Code runs on the same underlying Claude models, so its token usage is billed at the model rates in this guide. If you use Claude Code through an Anthropic plan or an API key, confirm which billing path applies, whether prompt caching is active, and what rate limits or subscription caps are in effect for your account.
+Claude Code can be used through subscription plans or a Claude Console/API account. When it uses a Claude Console account or API key, usage may be billed according to the applicable API rates. Subscription plans have their own prices, limits, and terms, so do not automatically apply this API pricing table to every Claude Code session.
 
 ### Does a Claude API gateway change Anthropic's official prices?
 
@@ -383,6 +391,6 @@ This article was written as an editorial guide using Anthropic's official docume
 
 **Changelog**
 
-- **2026-09-04** — Confirmed Sonnet 5 remains at $2 / $10 (standard pricing). Updated Fable 5.1 cache-hit rate to $0.25 / MTok (0.025×). Removed unverified "new user free credits" wording. Added ApiFlux commercial disclosure, vendor-claim labels, model decision tree, interactive cost calculator, "Claude API vs subscription" and "vs Bedrock/Vertex AI" sections, sensitivity analysis, and in-place source citations. Established FACTS.md fact ledger.
+- **2026-09-04** — Confirmed Sonnet 5 remains at $2 / $10 (standard pricing). Updated Fable 5.1 cache-hit rate to $0.25 / MTok (0.025×). Removed unverified "new user free credits" wording. Added ApiFlux commercial disclosure, vendor-claim labels, model decision tree, interactive cost calculator, "Claude API vs subscription" and "vs Bedrock/Vertex AI" sections, sensitivity analysis, and in-place source citations. Established SOURCES.md source ledger.
 
 This article does not claim an independent benchmark ranking, guaranteed savings, guaranteed availability, or a guaranteed search ranking. Model recommendations are conditional editorial guidance based on published pricing and vendor-described positioning; validate them against your own workload.
