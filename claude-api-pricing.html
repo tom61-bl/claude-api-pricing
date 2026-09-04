@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude API Pricing: Model Costs, Token Rates, and Batch Discounts</title>
+<meta name="description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
+<link rel="canonical" href="https://your-domain.com/claude-api-pricing">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude API Pricing: Model Costs, Token Rates, and Batch Discounts">
+<meta property="og:description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
+<meta property="og:url" content="https://your-domain.com/claude-api-pricing">
+<meta property="og:image" content="https://your-domain.com/og/claude-api-pricing.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claude API Pricing: Model Costs, Token Rates, and Batch Discounts">
+<meta name="twitter:description" content="Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.">
+<meta name="twitter:image" content="https://your-domain.com/og/claude-api-pricing.png">
+<meta name="robots" content="index, follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Claude API Pricing: Model Costs, Token Rates, and Batch Discounts",
+  "description": "Compare Claude API model prices, token costs, prompt caching, Batch API discounts, tools, limits, and monthly budget estimates.",
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "author": { "@type": "Organization", "name": "ApiFlux Editorial" },
+  "publisher": { "@type": "Organization", "name": "ApiFlux", "url": "https://apiflux.ai/" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://your-domain.com/claude-api-pricing" },
+  "inLanguage": "en"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Is Claude API pricing monthly or pay-as-you-go?","acceptedAnswer":{"@type":"Answer","text":"The first-party Claude API is usage-based. Charges depend on token usage and applicable features rather than a single fixed API subscription price."}},
+    {"@type":"Question","name":"What does MTok mean in Claude API pricing?","acceptedAnswer":{"@type":"Answer","text":"MTok means one million tokens. Input and output tokens are priced separately, and the rate depends on the selected model."}},
+    {"@type":"Question","name":"What is the cheapest Claude API model?","acceptedAnswer":{"@type":"Answer","text":"In the current first-party lineup, Claude Haiku 4.5 has the lowest listed standard rate at $1 per million input tokens and $5 per million output tokens."}},
+    {"@type":"Question","name":"Why is Claude Sonnet 5 priced at $2 / $10?","acceptedAnswer":{"@type":"Answer","text":"Sonnet 5's $2 input / $10 output rate was announced as introductory pricing; the scheduled increase to $3 / $15 on September 1, 2026 was canceled, so $2 / $10 is now the standard price."}},
+    {"@type":"Question","name":"Does the Claude API have a free tier?","acceptedAnswer":{"@type":"Answer","text":"Anthropic's API documentation does not establish a permanent free API tier in the sources reviewed for this guide. Check current Claude Console billing documentation for account-specific credits or promotions."}},
+    {"@type":"Question","name":"Can prompt caching reduce the total bill?","acceptedAnswer":{"@type":"Answer","text":"It can reduce the cost of repeatedly sending an eligible stable prefix when cache hits occur within the selected TTL. It does not automatically reduce output tokens, variable input, tool calls, or every request."}},
+    {"@type":"Question","name":"How much cheaper is the Claude Message Batches API?","acceptedAnswer":{"@type":"Answer","text":"Anthropic documents a 50% discount versus standard API pricing for the Message Batches API. Batch requests are asynchronous."}},
+    {"@type":"Question","name":"How is Claude Code billed relative to the Claude API?","acceptedAnswer":{"@type":"Answer","text":"Claude Code runs on the same underlying Claude models, so its token usage is billed at the model rates in this guide. Confirm which billing path, caching, and rate limits apply to your account."}},
+    {"@type":"Question","name":"Does a Claude API gateway change Anthropic's official prices?","acceptedAnswer":{"@type":"Answer","text":"A gateway may add its own fees, markup, currency conversion, or operational terms. Confirm the gateway's current pricing and usage accounting separately."}},
+    {"@type":"Question","name":"Are Claude API prices the same on Bedrock and Vertex AI?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Cloud marketplaces can have different pricing, billing units, model IDs, regional rules, availability, and lifecycle policies."}}
+  ]
+}
+</script>
+<style>
+  :root{--bg:#ffffff;--ink:#1f2430;--muted:#6b7280;--line:#e5e7eb;--brand:#2563eb;--brand-soft:#eff6ff;--code:#f6f8fa}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);line-height:1.65}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 22px 72px}
+  h1{font-size:30px;line-height:1.25;margin:0 0 8px}
+  .meta{color:var(--muted);font-size:13px;margin-bottom:28px}
+  h2{font-size:22px;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
+  h3{font-size:17px;margin:24px 0 8px}
+  p{margin:0 0 14px}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f9fafb;font-weight:600}
+  td.r,th.r{text-align:right}
+  code{background:var(--code);padding:1px 6px;border-radius:5px;font-size:0.9em}
+  pre{background:var(--code);padding:14px 16px;border-radius:10px;overflow-x:auto;font-size:13.5px;line-height:1.5}
+  blockquote{border-left:4px solid var(--line);margin:16px 0;padding:2px 18px;color:var(--muted)}
+  a{color:var(--brand)}
+  .lead{font-size:17px;color:#374151}
+  .callout{background:var(--brand-soft);border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:16px 0}
+  .disclosure{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;margin:16px 0}
+  .calc{background:#f7f8fa;border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0}
+  .calc .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:8px}
+  .calc label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+  .calc input,.calc select{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:7px;font-size:13px}
+  .calc .results{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:16px}
+  .calc .metric{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .calc .metric .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .calc .metric .v{font-size:19px;font-weight:700;margin-top:2px}
+  .calc .metric .s{font-size:11px;color:var(--muted)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:14px}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Claude API Pricing: Model Costs, Token Rates, and Batch Discounts</h1>
+<div class="meta">Checked September 4, 2026 · By ApiFlux Editorial</div>
+
+<p class="lead">As of <strong>September 4, 2026</strong>, Anthropic's first-party Claude API is quoted in USD per <strong>MTok</strong> (one million tokens), and standard input rates range from <strong>$1 per million input tokens and $5 per million output tokens for Claude Haiku 4.5</strong> up to <strong>$10 per million input tokens and $50 per million output tokens for Claude Fable 5.1</strong>. Batch processing cuts standard token prices by 50% for asynchronous workloads, and prompt caching has separate write and read pricing. Prices are time-sensitive — recheck Anthropic's live pricing before committing to a budget.</p>
+
+<blockquote>
+<p><strong>At a glance:</strong> Claude API pricing is usage-based · Input and output tokens have separate rates (output is more expensive) · Haiku 4.5 has the lowest listed standard rate · Sonnet 5 is a general-purpose candidate ($2/$10 now standard) · Batch API cuts standard rates by 50% for async work · Prompt caching helps only when stable prefixes are reused · ApiFlux prices and capabilities are vendor-published claims.</p>
+</blockquote>
+
+<h2>Quick answer: how much does the Claude API cost?</h2>
+<p>For Anthropic's first-party Claude API, the current standard model rates are:</p>
+<table>
+<tr><th>Model</th><th class="r">Input / MTok</th><th class="r">Output / MTok</th><th>Best treated as</th></tr>
+<tr><td>Claude Fable 5.1</td><td class="r">$10</td><td class="r">$50</td><td>Demanding reasoning and long-horizon agentic work</td></tr>
+<tr><td>Claude Opus 5</td><td class="r">$5</td><td class="r">$25</td><td>Complex coding, agents, and enterprise workloads</td></tr>
+<tr><td>Claude Sonnet 5</td><td class="r">$2</td><td class="r">$10</td><td>General-purpose balance (now standard pricing)</td></tr>
+<tr><td>Claude Haiku 4.5</td><td class="r">$1</td><td class="r">$5</td><td>Fast, lower-cost, high-volume workloads</td></tr>
+</table>
+
+<h3>Quick decision — what should you start with?</h3>
+<table>
+<tr><th>If you need…</th><th>Start by evaluating…</th><th>Main trade-off</th></tr>
+<tr><td>The lowest listed token price</td><td>Haiku 4.5</td><td>May require more validation</td></tr>
+<tr><td>A general production balance</td><td>Sonnet 5</td><td>Test against your own task set</td></tr>
+<tr><td>Complex coding or long-horizon agents</td><td>Opus 5</td><td>Higher token rate</td></tr>
+<tr><td>Demanding reasoning at any cost</td><td>Fable 5.1</td><td>Higher price and availability risk</td></tr>
+<tr><td>Offline bulk processing</td><td>Batch API</td><td>No real-time response</td></tr>
+<tr><td>One key, unified balance, routing, and logs</td><td>A gateway such as ApiFlux</td><td>Additional dependency to verify</td></tr>
+</table>
+
+<p>Anthropic's model overview positions Fable 5.1 for demanding reasoning, Opus 5 for complex agentic coding, Sonnet 5 for a speed–intelligence balance, and Haiku 4.5 for the lowest latency and price. Those are <strong>vendor positioning statements</strong>, not independent benchmark results.</p>
+
+<h2>Claude API pricing calculator</h2>
+<p>Anthropic lists Sonnet 5 at $2 per million input tokens and $10 per million output tokens in its <a href="https://platform.claude.com/docs/en/about-claude/pricing">current pricing documentation</a>. The basic formula is <code>base cost = requests × avg tokens ÷ 1,000,000 × rate</code>, scaled by retry rate, then divided by accepted results. Use the interactive estimator below:</p>
+
+<div class="calc">
+  <div class="grid">
+    <div><label>Monthly requests</label><input id="requests" type="number" value="500000" step="1000" min="0"></div>
+    <div><label>Avg input tokens / request</label><input id="avgIn" type="number" value="4000" step="100" min="0"></div>
+    <div><label>Avg output tokens / request</label><input id="avgOut" type="number" value="800" step="100" min="0"></div>
+    <div><label>Model</label>
+      <select id="model">
+        <option value="haiku">Haiku 4.5 — $1 / $5</option>
+        <option value="sonnet" selected>Sonnet 5 — $2 / $10</option>
+        <option value="opus">Opus 5 — $5 / $25</option>
+        <option value="fable">Fable 5.1 — $10 / $50</option>
+      </select>
+    </div>
+    <div><label>Cache hit rate (%)</label><input id="cacheHit" type="number" value="0" min="0" max="100"></div>
+    <div><label>Retry rate (%)</label><input id="retry" type="number" value="0" min="0" max="200"></div>
+    <div><label>Accepted-result rate (%)</label><input id="success" type="number" value="90" min="1" max="100"></div>
+    <div><label>Tool tokens / request</label><input id="toolTokens" type="number" value="0" min="0" step="100"></div>
+  </div>
+  <div>
+    <label><input id="batch" type="checkbox"> Use Batch API (−50% standard rates)</label>
+    &nbsp;
+    <label><input id="apiflux" type="checkbox"> Route via ApiFlux (vendor 85% of list)</label>
+    &nbsp;
+    <label>Web searches / 1,000 requests <input id="searches" type="number" value="0" min="0" step="1" style="width:90px;display:inline-block"></label>
+  </div>
+  <div class="results" id="results"></div>
+  <p class="note">Rates: first-party Claude API prices checked 2026-09-04. ApiFlux figures are vendor-published 85%-of-list claims. Estimates exclude taxes, negotiated terms, and server-tool execution fees.</p>
+</div>
+
+<h2>Current Claude API model prices</h2>
+<table>
+<tr><th>Model</th><th>API ID</th><th class="r">Input / output per MTok</th><th class="r">Context window</th><th class="r">Max output</th></tr>
+<tr><td>Claude Fable 5.1</td><td><code>claude-fable-5-1</code></td><td class="r">$10 / $50</td><td class="r">1M</td><td class="r">128K</td></tr>
+<tr><td>Claude Opus 5</td><td><code>claude-opus-5</code></td><td class="r">$5 / $25</td><td class="r">1M</td><td class="r">128K</td></tr>
+<tr><td>Claude Sonnet 5</td><td><code>claude-sonnet-5</code></td><td class="r">$2 / $10</td><td class="r">1M</td><td class="r">128K</td></tr>
+<tr><td>Claude Haiku 4.5</td><td><code>claude-haiku-4-5-20251001</code></td><td class="r">$1 / $5</td><td class="r">200K</td><td class="r">64K</td></tr>
+</table>
+<p>Model IDs and availability can differ by platform. Anthropic uses a dateless model-ID format for the 4.6 generation and later (for example, <code>claude-opus-5</code>), and each ID is a pinned snapshot, not an evergreen pointer — see <a href="https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions">model IDs and versioning</a>. Do not copy a model ID from an old article without checking the current <a href="https://platform.claude.com/docs/en/models/overview">Models API</a> and lifecycle documentation.</p>
+
+<h2>Which Claude model should you choose?</h2>
+<pre>Do you need a response immediately?
+├── Yes → Use the synchronous Messages API
+└── No
+    ├── Large volume → Evaluate the Batch API
+    └── Repeated long context → Evaluate Prompt Caching
+
+Is the task predictable and easy to validate?
+├── Yes → Start with Haiku 4.5
+└── No
+    ├── General production work → Evaluate Sonnet 5
+    └── Complex coding / reasoning → Benchmark Opus 5 or Fable 5.1</pre>
+
+<h3>Claude Haiku 4.5</h3>
+<p><strong>Price:</strong> $1 input / $5 output per MTok. <strong>Good fit:</strong> Classification, extraction, routing, short transformations, and high-volume workloads with checkable output. <strong>Poor fit:</strong> Deep multi-step reasoning, or workloads where cheap responses fail validation and are retried repeatedly. <strong>Measure:</strong> Success rate, output length, retry rate, latency, review burden, and cost per accepted result.</p>
+
+<h3>Claude Sonnet 5</h3>
+<p><strong>Price:</strong> $2 input / $10 output per MTok, now standard pricing. <strong>Good fit:</strong> General assistants, coding workflows, structured generation, moderate-complexity agents. <strong>Poor fit:</strong> Workloads that fail strict validation or need long multi-step reasoning. <strong>Measure:</strong> First-pass success, retry rate, latency, output length, cost per accepted result. For coding-LLM comparisons, see our <a href="https://github.com/tom61-bl/best-llm-for-coding-2026">best LLM for coding 2026</a> guide.</p>
+
+<h3>Claude Opus 5</h3>
+<p><strong>Price:</strong> $5 input / $25 output per MTok. <strong>Good fit:</strong> Complex code changes, deeper reasoning, agentic coding, enterprise work where fewer failed attempts justify the higher rate. <strong>Poor fit:</strong> Simple, high-volume, easily validated tasks. <strong>Measure:</strong> Successful outcomes, retry burden, latency, and review effort on a fixed task set.</p>
+
+<h3>Claude Fable 5.1</h3>
+<p><strong>Price:</strong> $10 input / $50 output per MTok. <strong>Good fit:</strong> Demanding reasoning and long-horizon agentic work where lower-cost models fall short. <strong>Poor fit:</strong> Most routine workloads. <strong>Measure:</strong> Task-level success on workloads where cheaper models fail, plus availability and access.</p>
+
+<h2>Prompt caching costs</h2>
+<p>Prompt caching reduces the cost of repeatedly sending the same prompt prefix. Anthropic's <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">prompt caching documentation</a> lists these standard multipliers relative to base input price:</p>
+<table>
+<tr><th>Cache operation</th><th class="r">Pricing multiplier</th><th>Meaning</th></tr>
+<tr><td>5-minute cache write</td><td class="r">1.25×</td><td>Cache valid for 5 minutes</td></tr>
+<tr><td>1-hour cache write</td><td class="r">2×</td><td>Cache valid for 1 hour</td></tr>
+<tr><td>Cache read (hit)</td><td class="r">0.1×</td><td>Applies to a cache hit</td></tr>
+</table>
+<p>Anthropic's current pricing table lists Claude Fable 5.1 cache hits and refreshes at <strong>$0.25 per MTok, or 0.025× its $10 base input rate</strong>. Because cache pricing is model-specific and time-sensitive, recheck the model-specific table before publication.</p>
+<p>A 5-minute write pays off after one successful cache read (1.25× write vs. a second full 1× input); a 1-hour write pays off after two reads (2× vs. three 1× inputs).</p>
+<blockquote><strong>Note:</strong> Batch, caching, and data-residency modifiers can interact, but they do not make the total bill automatically predictable. Calculate each token category separately and confirm the selected model and platform's billing rules.</blockquote>
+
+<h2>Batch API pricing</h2>
+<p>Anthropic's <a href="https://platform.claude.com/docs/en/build-with-claude/batch-processing">Message Batches API</a> provides a <strong>50% discount versus standard API pricing</strong> for asynchronous workloads.</p>
+<table>
+<tr><th>Model</th><th class="r">Standard in / out</th><th class="r">Batch in / out</th></tr>
+<tr><td>Claude Fable 5.1</td><td class="r">$10 / $50</td><td class="r">$5 / $25</td></tr>
+<tr><td>Claude Opus 5</td><td class="r">$5 / $25</td><td class="r">$2.50 / $12.50</td></tr>
+<tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1 / $5</td></tr>
+<tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.50 / $2.50</td></tr>
+</table>
+<p>Most batches finish in under an hour; a batch is limited to <strong>100,000 requests or 256 MB</strong>, must complete within 24 hours, and results are downloadable for <strong>29 days</strong>. Results are not guaranteed to preserve input order; streaming, fast mode, and <code>max_tokens: 0</code> are not supported. Use unique <code>custom_id</code> values.</p>
+
+<h2>Claude API vs Claude subscription</h2>
+<p>The Claude <strong>API</strong> is pay-as-you-go: you are billed for the tokens and features your application uses. It is not a prepaid bundle of a consumer or team subscription, and a subscription should not be treated as prepaid API credits. If you are building an application, plan for API token costs, spend limits, and rate limits separately from any Claude subscription you hold.</p>
+
+<h2>Claude API vs Bedrock and Vertex AI</h2>
+<table>
+<tr><th>Platform</th><th>Billing</th><th>Notes</th></tr>
+<tr><td>Claude API (first-party)</td><td>Per-MTok token rates</td><td>Prices and multipliers in this article</td></tr>
+<tr><td>Amazon Bedrock</td><td>Provider-invoiced</td><td>Regional endpoints include a 10% premium</td></tr>
+<tr><td>Google Cloud Vertex AI</td><td>Provider-invoiced</td><td>Regional endpoints include a 10% premium</td></tr>
+<tr><td>Claude Platform on AWS</td><td>Claude Consumption Units (CCUs)</td><td>Token usage converted to CCUs at $0.01 per CCU</td></tr>
+</table>
+<p>Partner platforms can use different billing units, regional pricing, model IDs, availability rules, and retirement schedules. Normalize the comparison before choosing: use the same model generation, confirm which categories are priced, check taxes and regional multipliers, verify the exact model ID, and compare a fixed workload with identical success criteria.</p>
+
+<h2>How ApiFlux can reduce operational complexity</h2>
+<div class="disclosure"><strong>Commercial disclosure:</strong> ApiFlux is mentioned because it operates the publishing project. The pricing, feature, and discount statements in this section are <strong>vendor-published claims</strong>, not independent benchmark results. Verify them before making procurement decisions.</div>
+<p><strong>The problem.</strong> A team using multiple model providers may need to manage several API keys, balances, model IDs, rate limits, and usage dashboards — overhead that is separate from Anthropic's published token rates.</p>
+<p><strong>What ApiFlux advertises.</strong> ApiFlux's public site presents it as an AI router and gateway that gives you one API key for 100+ frontier models (Claude, GPT, Gemini, DeepSeek, Qwen, Kimi), with native Anthropic/OpenAI/Gemini-compatible endpoints, automatic failover, transparent per-token billing, one shared balance, and usage monitoring. For compatible clients, connecting may require only a base-URL and key change — confirm the endpoint and model IDs your code uses.</p>
+<p><strong>Vendor claims to treat as unverified.</strong> ApiFlux advertises pricing at <strong>85% of the maker's official list price</strong> and a <strong>$1 starting credit</strong> on signup without a credit card; it also describes <strong>zero data retention</strong>. These are vendor-published commercial claims, not independently audited savings results — review the current privacy and retention terms, and test failover behavior with your workload.</p>
+<table>
+<tr><th>Model</th><th class="r">Anthropic first-party</th><th class="r">ApiFlux listed price</th></tr>
+<tr><td>Claude Fable 5</td><td class="r">$10 / $50</td><td class="r">$8.50 / $42.50</td></tr>
+<tr><td>Claude Opus 5</td><td class="r">$5 / $25</td><td class="r">$4.25 / $21.25</td></tr>
+<tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1.70 / $8.50</td></tr>
+<tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.85 / $4.25</td></tr>
+</table>
+<p><strong>Verify before production use:</strong> supported Claude model IDs, Messages API compatibility, how input/output/cache/tool usage is reported, routing effects, balance/refund/rate-limit handling, log retention, and whether the discount applies to every feature. Start at <a href="https://apiflux.ai/">apiflux.ai</a> (create a key on the <a href="https://apiflux.ai/keys">Keys page</a>), browse models at <a href="https://apiflux.ai/models">/models</a>, and check <a href="https://apiflux.ai/models/anthropic">Claude prices</a>.</p>
+
+<h2>Monthly cost examples and sensitivity</h2>
+<table>
+<tr><th>Workload</th><th>Model</th><th class="r">Requests / mo</th><th class="r">Avg in / out</th><th class="r">Monthly estimate</th></tr>
+<tr><td>High-volume classification</td><td>Haiku 4.5</td><td class="r">5,000,000</td><td class="r">1,500 / 200</td><td class="r">≈ $12,500</td></tr>
+<tr><td>General assistant</td><td>Sonnet 5</td><td class="r">500,000</td><td class="r">4,000 / 800</td><td class="r">≈ $8,000</td></tr>
+<tr><td>Complex agentic coding</td><td>Opus 5</td><td class="r">100,000</td><td class="r">20,000 / 4,000</td><td class="r">≈ $20,000</td></tr>
+</table>
+<p><strong>Sensitivity:</strong> output tokens +50% → significant increase (output rates are 5× input) · retry rate 0%→10% → roughly +10% · cache hit 0%→80% → lowers repeated-input cost · batch 0%→100% → cuts token charges by 50% · more human review → can offset API savings. Routing through ApiFlux lowers the token-cost component at its vendor-listed 85%-of-list rates.</p>
+
+<h2>Claude API pricing FAQ</h2>
+<ol>
+<li><strong>Is Claude API pricing monthly or pay-as-you-go?</strong> Usage-based; depends on token usage and features, not a fixed API subscription price.</li>
+<li><strong>What does MTok mean?</strong> One million tokens; input and output are priced separately by model.</li>
+<li><strong>What is the cheapest Claude API model?</strong> Haiku 4.5 at $1/$5 per MTok — but production cost depends on success, retries, latency, and review.</li>
+<li><strong>Why is Sonnet 5 priced at $2/$10?</strong> The September 1, 2026 increase to $3/$15 was canceled; $2/$10 is now standard.</li>
+<li><strong>Does the Claude API have a free tier?</strong> Anthropic's documentation does not establish a permanent free API tier in the sources reviewed; check current Console billing docs. (ApiFlux separately advertises a $1 starting credit — a vendor claim.)</li>
+<li><strong>Can prompt caching reduce the bill?</strong> Yes, for eligible stable prefixes with cache hits within the TTL; not for output, variable input, or every request.</li>
+<li><strong>How much cheaper is the Message Batches API?</strong> 50% off standard token pricing, asynchronous.</li>
+<li><strong>How is Claude Code billed?</strong> It runs on the same models, so tokens are billed at these rates; confirm your billing path, caching, and limits.</li>
+<li><strong>Does a gateway change Anthropic's prices?</strong> It may add fees or markup; confirm separately. ApiFlux is a routing option, not proof of lower underlying rates.</li>
+<li><strong>Are prices the same on Bedrock and Vertex AI?</strong> Not necessarily; compare each platform's own official documentation.</li>
+</ol>
+
+<h2>Sources and update history</h2>
+<p>Editorial guide using Anthropic's official documentation, checked September 4, 2026: <a href="https://platform.claude.com/docs/en/about-claude/pricing">Pricing</a> · <a href="https://platform.claude.com/docs/en/models/overview">Models overview</a> · <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a> · <a href="https://platform.claude.com/docs/en/build-with-claude/batch-processing">Message Batches</a> · <a href="https://platform.claude.com/docs/en/api/rate-limits">Rate limits</a> · <a href="https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions">Model IDs</a> · <a href="https://claude.com/pricing">claude.com/pricing</a>. ApiFlux claims: <a href="https://apiflux.ai/">home</a> · <a href="https://apiflux.ai/models">catalog</a> · <a href="https://apiflux.ai/models/anthropic">Claude prices</a>.</p>
+<p><strong>Update triggers:</strong> Review immediately when Anthropic changes rates, model IDs, caching multipliers, Batch terms, tool prices, spend limits, or lifecycle dates, and when ApiFlux changes prices, supported models, privacy/retention terms, or URLs. Check model IDs monthly; review FAQ and structure quarterly.</p>
+<p><strong>Changelog:</strong> 2026-09-04 — Confirmed Sonnet 5 at $2/$10 standard; updated Fable 5.1 cache-hit to $0.25/MTok (0.025×); removed unverified free-tier wording; added commercial disclosure, decision tree, calculator, vs-subscription and vs-platform sections, sensitivity analysis, and in-place citations.</p>
+
+<footer>
+<p>This article does not claim an independent benchmark ranking, guaranteed savings, guaranteed availability, or a guaranteed search ranking. Model recommendations are conditional editorial guidance based on published pricing and vendor-described positioning; validate them against your own workload.</p>
+<p><em>Deployment note: replace <code>your-domain.com</code> in canonical/OG/JSON-LD with the live domain, add the OG image, and verify crawl, mobile rendering, and rich results before going live.</em></p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var MODELS = {
+    haiku:{in:1,out:5,cr:0.10,bi:0.50,bo:2.50},
+    sonnet:{in:2,out:10,cr:0.20,bi:1,bo:5},
+    opus:{in:5,out:25,cr:0.50,bi:2.50,bo:12.50},
+    fable:{in:10,out:50,cr:0.25,bi:5,bo:25}
+  };
+  var CW=1.25, DIS=0.85;
+  function $(id){return document.getElementById(id);}
+  function n(id){var v=parseFloat($(id).value);return isNaN(v)?0:v;}
+  function money(x){if(!isFinite(x))x=0;if(x>=1000000)return "$"+(x/1000000).toFixed(2)+"M";if(x>=1000)return "$"+Math.round(x).toLocaleString();return "$"+x.toFixed(2);}
+  function tot(r,req,ai,ao,ch,rt,se){var ci=ai*ch,ui=ai*(1-ch);var cw=req*ci/1e6*CW*r.in;var cr=req*ci/1e6*r.cr;var u=req*ui/1e6*r.in;var o=req*ao/1e6*r.out;var s=req/1000*se*10;return (cw+cr+u+o)*(1+rt)+s;}
+  function calc(){
+    var m=MODELS[$( 'model').value],req=n('requests'),ai=n('avgIn')+n('toolTokens'),ao=n('avgOut');
+    var ch=n('cacheHit')/100,rt=n('retry')/100,sc=n('success')/100,batch=$( 'batch').checked,apx=$( 'apiflux').checked,se=n('searches');
+    var d={in:m.in,out:m.out,cr:m.cr};if(batch){d.in=m.bi;d.out=m.bo;}
+    var a={in:m.in*DIS,out:m.out*DIS,cr:m.cr*DIS};if(batch){a.in=m.bi*DIS;a.out=m.bo*DIS;}
+    var dT=tot(d,req,ai,ao,ch,rt,se), aT=tot(a,req,ai,ao,ch,rt,se);
+    var active=apx?aT:dT, diff=dT-aT, acc=req*sc, per=acc>0?active/acc:0;
+    var disp=apx?a:d, ci=ai*ch, ui=ai*(1-ch);
+    var inCost=req*(ui/1e6*disp.in+ci/1e6*CW*disp.in+ci/1e6*disp.cr);
+    var outCost=req*ao/1e6*disp.out;
+    var h="";
+    h+=met("Monthly input cost",money(inCost),"incl. cache write + read");
+    h+=met("Monthly output cost",money(outCost),"output tokens");
+    h+=met("Direct Anthropic estimate",money(dT),"first-party rates",!apx);
+    h+=met("ApiFlux listed estimate",money(aT),"vendor 85% of list",apx);
+    h+=met("Monthly difference",(diff>=0?"−":"+")+money(Math.abs(diff)),diff>=0?"potential saving vs first-party":"ApiFlux estimate higher");
+    h+=met("Cost per accepted result",money(per),"total ÷ accepted results");
+    $( 'results').innerHTML=h;
+  }
+  function met(k,v,s,p){return '<div class="metric'+(p?' primary':'')+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+s+'</div></div>';}
+  ['requests','avgIn','avgOut','toolTokens','model','cacheHit','retry','success','searches','batch','apiflux'].forEach(function(id){var el=$(id);el.addEventListener('input',calc);el.addEventListener('change',calc);});
+  calc();
+})();
+</script>
+</body>
+</html>
