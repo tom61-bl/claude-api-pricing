@@ -23,9 +23,6 @@ A practical, source-backed guide to Claude API pricing, model costs, token rates
 │   ├── claude-api-cost-calculator.html
 │   ├── claude-api-pricing.html
 │   └── FACTS.md
-└── i18n/
-    └── zh/
-        └── claude-api-pricing-zh.md
 ```
 
 ## Contents
@@ -34,10 +31,6 @@ A practical, source-backed guide to Claude API pricing, model costs, token rates
 - [Claude API cost calculator](content/claude-api-cost-calculator.html) — interactive HTML/JS monthly cost estimator
 - [claude-api-pricing.html](content/claude-api-pricing.html) — deployable single-page production HTML (meta/canonical/OG/JSON-LD + embedded calculator)
 - [FACTS.md](content/FACTS.md) — internal fact ledger (evidence type, source, check date, allowed wording, risk)
-
-## Translations
-
-- [中文翻译](i18n/zh/claude-api-pricing-zh.md) — Chinese translation of the guide
 
 ## Scope
 
