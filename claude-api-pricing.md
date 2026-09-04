@@ -161,7 +161,7 @@ Is the task predictable and easy to validate?
 
 **Poor fit:** Workloads where the model fails strict validation or requires long multi-step reasoning that demands a higher-capability model.
 
-**What to measure:** First-pass success, retry rate, latency, output length, and cost per accepted result, especially when the application needs tool calls, long context, strict JSON, multilingual output, or reliable edge-case handling. For a fuller comparison of coding-oriented LLM options, see our [best LLM for coding 2026](https://github.com/tom61-bl/best-llm-for-coding-2026) guide.
+**What to measure:** First-pass success, retry rate, latency, output length, and cost per accepted result, especially when the application needs tool calls, long context, strict JSON, multilingual output, or reliable edge-case handling. For a fuller comparison of coding-oriented LLM options, see our [best LLMs for coding 2026](https://apiflux.ai/blog/best-llm-for-coding) guide on the ApiFlux blog.
 
 ### Claude Opus 5
 
