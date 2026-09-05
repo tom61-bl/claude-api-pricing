@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude API Cost Calculator — Estimate Monthly Token Costs</title>
+<meta name="description" content="Estimate monthly Claude API costs by model, token volume, prompt caching, Batch API usage, retries, and ApiFlux routing. Includes per-accepted-result cost.">
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2430; --muted:#6b7280; --line:#e5e7eb;
+    --brand:#2563eb; --brand-soft:#eff6ff; --ok:#059669; --warn:#b45309;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1040px;margin:0 auto;padding:32px 20px 64px}
+  header h1{font-size:26px;margin:0 0 6px}
+  header p{color:var(--muted);margin:0 0 24px;max-width:70ch}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h2{font-size:15px;margin:0 0 14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 4px}
+  .field{margin-bottom:14px}
+  input[type=number],select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff}
+  .hint{font-size:12px;color:var(--muted);margin-top:4px}
+  .toggle{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;cursor:pointer}
+  .toggle input{width:auto}
+  .results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .metric .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .metric .v{font-size:22px;font-weight:700;margin-top:4px}
+  .metric .s{font-size:12px;color:var(--muted);margin-top:2px}
+  .metric.primary{background:var(--brand-soft);border-color:#bfdbfe}
+  .metric.ok .v{color:var(--ok)}
+  .metric.warn .v{color:var(--warn)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+  footer{margin-top:32px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Claude API Cost Calculator</h1>
+    <p>Estimate a monthly Claude API bill from workload inputs. Rates are first-party Claude API prices checked September 4, 2026. The ApiFlux estimate uses ApiFlux's vendor-published 85%-of-list pricing. All figures are estimates, not quotes.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Workload</h2>
+      <div class="field">
+        <label for="requests">Monthly requests</label>
+        <input id="requests" type="number" min="0" step="1000" value="500000">
+      </div>
+      <div class="field">
+        <label for="avgIn">Average input tokens / request</label>
+        <input id="avgIn" type="number" min="0" step="100" value="4000">
+      </div>
+      <div class="field">
+        <label for="avgOut">Average output tokens / request</label>
+        <input id="avgOut" type="number" min="0" step="100" value="800">
+      </div>
+      <div class="field">
+        <label for="toolTokens">Average tool tokens / request (tool defs + results)</label>
+        <input id="toolTokens" type="number" min="0" step="100" value="0">
+        <div class="hint">Tool definition and tool-result tokens are billed as input.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Model &amp; pricing</h2>
+      <div class="field">
+        <label for="model">Model</label>
+        <select id="model">
+          <option value="haiku">Claude Haiku 4.5 — $1 / $5 per MTok</option>
+          <option value="sonnet" selected>Claude Sonnet 5 — $2 / $10 per MTok</option>
+          <option value="opus">Claude Opus 5 — $5 / $25 per MTok</option>
+          <option value="fable">Claude Fable 5.1 — $10 / $50 per MTok</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cacheHit">Prompt cache hit rate (%)</label>
+        <input id="cacheHit" type="number" min="0" max="100" step="1" value="0">
+        <div class="hint">Share of stable input read from cache. 0 = no caching.</div>
+      </div>
+      <div class="field">
+        <label for="retry">Retry rate (%)</label>
+        <input id="retry" type="number" min="0" max="200" step="1" value="0">
+      </div>
+      <div class="field">
+        <label for="success">Accepted-result rate (%)</label>
+        <input id="success" type="number" min="1" max="100" step="1" value="90">
+        <div class="hint">Share of requests that become accepted production results.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Options</h2>
+      <div class="field">
+        <label class="toggle"><input id="batch" type="checkbox"> Use Batch API (−50% standard rates)</label>
+      </div>
+      <div class="field">
+        <label class="toggle"><input id="apiflux" type="checkbox"> Route via ApiFlux (vendor 85% of list)</label>
+      </div>
+      <div class="field">
+        <label for="searches">Web searches / 1,000 requests</label>
+        <input id="searches" type="number" min="0" step="1" value="0">
+        <div class="hint">Web search is $10 per 1,000 searches (Anthropic published rate), plus token cost of results. Gateway-specific fees may differ.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <p class="note">
+    Method: base input cost = requests × input tokens ÷ 1,000,000 × input rate; base output cost likewise.
+    Cached input is charged as a cache write (1.25× input for a 5-minute TTL) plus a cache read (0.1× input for most models; Fable 5.1 at 0.025×).
+    Batch applies a 50% discount to input and output token charges. Retry rate scales token cost; ApiFlux estimate applies its vendor-published 85%-of-list rates.
+    Tool tokens and web-search fees are added. Cost per accepted result = total cost ÷ (requests × accepted-result rate).
+    Web-search fees are modeled using Anthropic published rate; gateway-specific fees may differ. This does not include taxes, negotiated terms, server-tool execution fees, or platform-specific billing.
+  </p>
+
+  <footer>
+    Prices checked September 4, 2026. Anthropic rates are first-party API base rates; ApiFlux figures are vendor-published claims, not independent benchmark results. See the full guide for sources and update policy.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var MODELS = {
+    haiku:{name:"Claude Haiku 4.5", in:1, out:5, cacheRead:0.10, batchIn:0.50, batchOut:2.50},
+    sonnet:{name:"Claude Sonnet 5", in:2, out:10, cacheRead:0.20, batchIn:1, batchOut:5},
+    opus:{name:"Claude Opus 5", in:5, out:25, cacheRead:0.50, batchIn:2.50, batchOut:12.50},
+    fable:{name:"Claude Fable 5.1", in:10, out:50, cacheRead:0.25, batchIn:5, batchOut:25}
+  };
+  var CACHE_WRITE = 1.25; // 5-minute write multiplier
+  var APIFLUX_DISCOUNT = 0.85;
+
+  function $id(id){return document.getElementById(id);}
+  function num(id){var v=parseFloat($id(id).value);return isNaN(v)?0:v;}
+  function money(x){ if(!isFinite(x)) x=0; if(x>=1000000) return "$"+(x/1000000).toFixed(2)+"M"; if(x>=1000) return "$"+Math.round(x).toLocaleString(); return "$"+x.toFixed(2); }
+
+  // Total for a given rate set (r = {in,out,cr}), incl. cache, tools, retries, search
+  function modelTotal(r, requests, avgIn, avgOut, cacheHit, retry, searchesPer1k){
+    var cachedIn = avgIn*cacheHit, uncachedIn = avgIn*(1-cacheHit);
+    var cw = requests*cachedIn/1000000*CACHE_WRITE*r.in;
+    var cr = requests*cachedIn/1000000*r.cr;
+    var u  = requests*uncachedIn/1000000*r.in;
+    var o  = requests*avgOut/1000000*r.out;
+    var search = requests/1000*searchesPer1k*10;
+    return (cw+cr+u+o)*(1+retry)+search;
+  }
+
+  function calc(){
+    var m = MODELS[$id('model').value];
+    var requests = num('requests');
+    var avgIn = num('avgIn') + num('toolTokens');
+    var avgOut = num('avgOut');
+    var cacheHit = num('cacheHit')/100;
+    var retry = num('retry')/100;
+    var success = num('success')/100;
+    var batch = $id('batch').checked;
+    var apiflux = $id('apiflux').checked;
+    var searchesPer1k = num('searches');
+
+    // Direct Anthropic (first-party rates, optional batch)
+    var dir = {in:m.in, out:m.out, cr:m.cacheRead};
+    if(batch){ dir.in=m.batchIn; dir.out=m.batchOut; }
+    var dTotal = modelTotal(dir, requests, avgIn, avgOut, cacheHit, retry, searchesPer1k);
+
+    // ApiFlux vendor estimate (85% of list, optional batch)
+    var a = {in:m.in*APIFLUX_DISCOUNT, out:m.out*APIFLUX_DISCOUNT, cr:m.cacheRead*APIFLUX_DISCOUNT};
+    if(batch){ a.in=m.batchIn*APIFLUX_DISCOUNT; a.out=m.batchOut*APIFLUX_DISCOUNT; }
+    var aTotal = modelTotal(a, requests, avgIn, avgOut, cacheHit, retry, searchesPer1k);
+
+    var activeTotal = apiflux ? aTotal : dTotal;
+    var diff = dTotal - aTotal;
+    var accepted = requests*success;
+    var perAccepted = accepted>0 ? activeTotal/accepted : 0;
+
+    var cachedIn = avgIn*cacheHit, uncachedIn = avgIn*(1-cacheHit);
+    var disp = apiflux ? a : dir;
+    var inCost = requests*(uncachedIn/1000000*disp.in + cachedIn/1000000*CACHE_WRITE*disp.in + cachedIn/1000000*disp.cr);
+    var outCost = requests*avgOut/1000000*disp.out;
+
+    var html = "";
+    html += metric("Monthly input cost", money(inCost), "incl. cache write + read", false);
+    html += metric("Monthly output cost", money(outCost), "output tokens", false);
+    html += metric("Direct Anthropic estimate", money(dTotal), "first-party rates, incl. tools & retries", !apiflux);
+    html += metric("ApiFlux listed estimate", money(aTotal), "vendor 85% of list", apiflux);
+    html += metric("Monthly difference", (diff>=0?"−":"+")+money(Math.abs(diff)), diff>=0 ? "potential saving vs first-party" : "ApiFlux estimate higher", false, diff>=0?"ok":"warn");
+    html += metric("Cost per accepted result", money(perAccepted), "total ÷ accepted results", false);
+    $id('results').innerHTML = html;
+  }
+
+  function metric(k,v,s,primary,cls){
+    return '<div class="metric '+(primary?'primary':'')+' '+(cls||'')+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+s+'</div></div>';
+  }
+
+  var fields = ['requests','avgIn','avgOut','toolTokens','model','cacheHit','retry','success','searches','batch','apiflux'];
+  fields.forEach(function(id){ var el=$id(id); el.addEventListener('input',calc); el.addEventListener('change',calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
