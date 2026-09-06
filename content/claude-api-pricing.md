@@ -1,6 +1,6 @@
 ---
 title: "Claude API Pricing 2026: Token Costs, Models & Savings | ApiFlux"
-description: "Claude API pricing explained: current per-MTok model rates, the 50% Batch discount, prompt caching costs, tools, limits, ApiFlux gateway pricing, and an interactive cost calculator."
+description: "Claude API pricing 2026: per-MTok model rates, 50% Batch discount, prompt caching costs, limits, ApiFlux gateway rates, and a cost calculator."
 slug: "claude-api-pricing"
 primary_keyword: "claude api pricing"
 primary_intent: "commercial / transactional"
