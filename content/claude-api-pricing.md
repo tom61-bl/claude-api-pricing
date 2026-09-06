@@ -1,5 +1,5 @@
 ---
-title: "Claude API Pricing 2026: Token Costs, Models & Savings"
+title: "Claude API Pricing 2026: Token Costs, Models & Savings | ApiFlux"
 description: "Claude API pricing explained: current per-MTok model rates, the 50% Batch discount, prompt caching costs, tools, limits, ApiFlux gateway pricing, and an interactive cost calculator."
 slug: "claude-api-pricing"
 primary_keyword: "claude api pricing"
@@ -18,7 +18,7 @@ apiflux_pricing_status: "vendor_claim"
 
 # Claude API Pricing 2026: Token Costs, Models & Savings
 
-![Claude API pricing decision matrix — model costs mapped to task complexity and cost sensitivity](../assets/cover-hero-1600x900.png)
+![Claude API pricing decision matrix — model costs mapped to task complexity and cost sensitivity](../assets/claude-api-pricing-cover-hero-1600x900.png)
 
 ## Contents
 
@@ -161,7 +161,7 @@ For reproducible applications, record the exact model ID, prompt version, tool c
 
 ### How to choose the right Claude model
 
-![Claude API decision router — sync vs batch/caching, then Haiku/Sonnet/Opus by predictability](../assets/section-decision-router-1280x720.png)
+![Claude API decision router — sync vs batch/caching, then Haiku/Sonnet/Opus by predictability](../assets/claude-api-pricing-decision-router-1280x720.png)
 
 At ApiFlux, we route Claude workloads across Anthropic, Bedrock, and Vertex channels in production. Our evaluation practice is a representative 15–30 task set with executable success criteria, repeated runs, and cost-per-accepted-result tracking — the same framework in our [best LLMs for coding 2026 guide](https://apiflux.ai/blog/best-llm-for-coding). Token price is an input to that decision, never the decision itself.
 
@@ -248,7 +248,7 @@ At the standard multipliers, a 5-minute cache write pays off after **one** succe
 
 > **Note on stacking:** Batch, caching, and data-residency modifiers can interact, but these modifiers do not make the total bill automatically predictable. Calculate each token category separately and confirm the selected model and platform's billing rules.
 
-![Prompt caching break-even — 3.0x without caching, 1.45x with 5-min cache, 2.2x with 1-hour cache](../assets/section-cache-breakeven-1280x720.png)
+![Prompt caching break-even — 3.0x without caching, 1.45x with 5-min cache, 2.2x with 1-hour cache](../assets/claude-api-pricing-cache-breakeven-1280x720.png)
 
 This break-even analysis assumes the prefix is long enough to be cacheable, the content before the breakpoint is unchanged, the follow-up request arrives within the TTL, and a cache hit actually occurs. Output tokens and uncached suffix tokens are excluded from this narrow comparison.
 
@@ -474,7 +474,7 @@ Cached estimate:                                ≈ $6,930 / month
 
 These are illustrative figures for method demonstration only; your real bill depends on caching, tools, retries, batch use, and negotiated terms. Use them to shape the calculation, not as a quote for your workload.
 
-![Monthly cost comparison — official vs ApiFlux 85% list price for three workloads](../assets/section-monthly-cost-1280x720.png)
+![Monthly cost comparison — official vs ApiFlux 85% list price for three workloads](../assets/claude-api-pricing-monthly-cost-1280x720.png)
 
 **Sensitivity — what moves the bill most:**
 
