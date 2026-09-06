@@ -143,11 +143,11 @@
 <h3>Official vs ApiFlux — listed price comparison</h3>
 <p>ApiFlux figures are vendor-published, checked September 4, 2026:</p>
 <table>
-<tr><th>Model</th><th class="r">Anthropic first-party (in / out)</th><th class="r">ApiFlux listed (in / out)</th><th class="r">Listed difference</th></tr>
-<tr><td>Claude Fable 5</td><td class="r">$10 / $50</td><td class="r">$8.50 / $42.50</td><td class="r">−15%</td></tr>
-<tr><td>Claude Opus 5</td><td class="r">$5 / $25</td><td class="r">$4.25 / $21.25</td><td class="r">−15%</td></tr>
-<tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1.70 / $8.50</td><td class="r">−15%</td></tr>
-<tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.85 / $4.25</td><td class="r">−15%</td></tr>
+<tr><th>Model</th><th class="r">Anthropic first-party (in / out)</th><th class="r">ApiFlux listed (in / out)</th><th class="r">Listed difference</th><th>Active channels</th></tr>
+<tr><td>Claude Fable 5</td><td class="r">$10 / $50</td><td class="r">$8.50 / $42.50</td><td class="r">−15%</td><td>Anthropic</td></tr>
+<tr><td>Claude Opus 5</td><td class="r">$5 / $25</td><td class="r">$4.25 / $21.25</td><td class="r">−15%</td><td>Anthropic, Bedrock, Vertex AI</td></tr>
+<tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1.70 / $8.50</td><td class="r">−15%</td><td>Anthropic</td></tr>
+<tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.85 / $4.25</td><td class="r">−15%</td><td>Anthropic</td></tr>
 </table>
 <p class="src-note">Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from <a href="https://apiflux.ai/models/anthropic">apiflux.ai/models/anthropic</a>, checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks.</p>
 
@@ -327,7 +327,7 @@ ApiFlux gateway
          │
          ▼
     Claude model response</pre>
-<p>This is a vendor-described routing topology. Before relying on it, test failover behavior with your own workload: confirm which channels are actually available for the model IDs you use, how routing decisions are made, whether cache and tool billing are preserved across channels, and whether a fallback changes the model behavior or regional endpoint.</p>
+<p>This is a vendor-described routing topology. Before relying on it, test failover behavior with your own workload: confirm which channels are actually available for the model IDs you use, how routing decisions are made, whether cache and tool billing are preserved across channels, and whether a fallback changes the model behavior or regional endpoint. For more on how AI routers work and how ApiFlux compares to alternatives, see <a href="https://apiflux.ai/blog/what-is-an-ai-router">what is an AI router</a> and <a href="https://apiflux.ai/blog/openrouter-alternative">OpenRouter alternatives</a>.</p>
 
 <p><strong>Vendor claims to treat as unverified.</strong> ApiFlux advertises pricing at <strong>85% of the maker's official list price</strong> and a <strong>$1 starting credit</strong> on signup without a credit card; it describes zero data retention in its public materials. These are vendor-published commercial claims, not independently audited savings results. Review the current privacy and retention terms before sending sensitive prompts, and test failover behavior with your workload.</p>
 

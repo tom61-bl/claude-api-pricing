@@ -61,12 +61,12 @@ For Anthropic's first-party Claude API, the current standard model rates are:
 
 **Official vs ApiFlux — listed price comparison** (ApiFlux figures are vendor-published, checked September 4, 2026):
 
-| Model | Anthropic first-party (in / out) | ApiFlux listed (in / out) | Listed difference |
-|---|---:|---:|---:|
-| Claude Fable 5 | $10 / $50 | $8.50 / $42.50 | −15% |
-| Claude Opus 5 | $5 / $25 | $4.25 / $21.25 | −15% |
-| Claude Sonnet 5 | $2 / $10 | $1.70 / $8.50 | −15% |
-| Claude Haiku 4.5 | $1 / $5 | $0.85 / $4.25 | −15% |
+| Model | Anthropic first-party (in / out) | ApiFlux listed (in / out) | Listed difference | Active channels |
+|---|---:|---:|---:|---|
+| Claude Fable 5 | $10 / $50 | $8.50 / $42.50 | −15% | Anthropic |
+| Claude Opus 5 | $5 / $25 | $4.25 / $21.25 | −15% | Anthropic, Bedrock, Vertex AI |
+| Claude Sonnet 5 | $2 / $10 | $1.70 / $8.50 | −15% | Anthropic |
+| Claude Haiku 4.5 | $1 / $5 | $0.85 / $4.25 | −15% | Anthropic |
 
 *Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic), checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks.*
 
@@ -378,7 +378,7 @@ ApiFlux gateway
     Claude model response
 ```
 
-This is a vendor-described routing topology. Before relying on it, test failover behavior with your own workload: confirm which channels are actually available for the model IDs you use, how routing decisions are made, whether cache and tool billing are preserved across channels, and whether a fallback changes the model behavior or regional endpoint.
+This is a vendor-described routing topology. Before relying on it, test failover behavior with your own workload: confirm which channels are actually available for the model IDs you use, how routing decisions are made, whether cache and tool billing are preserved across channels, and whether a fallback changes the model behavior or regional endpoint. For more on how AI routers work and how ApiFlux compares to alternatives, see [what is an AI router](https://apiflux.ai/blog/what-is-an-ai-router) and [OpenRouter alternatives](https://apiflux.ai/blog/openrouter-alternative).
 
 **Vendor claims to treat as unverified.** ApiFlux advertises pricing at **85% of the maker's official list price** (its listed Claude prices, checked September 4, 2026, are shown below) and currently advertises a **$1 starting credit** on signup without a credit card. These are vendor-published commercial claims, not independently audited savings results. ApiFlux describes zero data retention in its public materials. Review the current privacy and retention terms before sending sensitive prompts, and test failover behavior with your own workload before relying on either claim.
 
