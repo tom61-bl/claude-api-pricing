@@ -295,6 +295,19 @@ Treat the batch figures as calculated examples based on the published 50% discou
 
 The Batch API also has operational constraints. Requests are processed independently, results are **not guaranteed to preserve input order**, and streaming, fast mode, and `max_tokens: 0` are not supported. Use unique `custom_id` values and build a result-matching strategy around those IDs. For a gateway that supports both synchronous and asynchronous Claude workloads across multiple channels, see the [ApiFlux setup guide](https://apiflux.ai/docs/setup).
 
+### Rate limits and monthly spend caps
+
+Anthropic replaced its numeric Tier 1–4 system with named tiers — **Start, Build, Scale**, plus a Custom sales tier — on June 26, 2026. Organizations move up automatically based on usage history and account standing; you do not buy a tier directly. Each tier carries a monthly spend cap:
+
+| Tier | Monthly spend cap | Typical use |
+|---|---:|---|
+| Start | $500 | Prototyping, individual developers |
+| Build | $1,000 | Small teams, internal tools |
+| Scale | $200,000 | Production applications |
+| Custom | No cap | Enterprise, negotiated |
+
+Reaching a cap returns HTTP 429. Per-model RPM/TPM ceilings also apply and vary by tier — check the [Anthropic rate limits documentation](https://platform.claude.com/docs/en/api/rate-limits) for current numbers. A gateway such as ApiFlux can abstract rate-limit differences across providers, but it cannot remove an upstream provider's spend cap.
+
 ## Claude API vs alternatives: subscription, cloud, and OpenAI
 
 ### vs Claude subscription pricing
@@ -509,9 +522,13 @@ Anthropic documents a 50% discount versus standard API pricing for the Message B
 
 Claude Code can be used through subscription plans or a Claude Console/API account. When it uses a Claude Console account or API key, usage may be billed according to the applicable API rates. Subscription plans have their own prices, limits, and terms, so do not automatically apply this API pricing table to every Claude Code session. For setup details, see the [ApiFlux Claude Code documentation](https://apiflux.ai/docs/claude-code).
 
+### What does Claude cost through a gateway like ApiFlux?
+
+ApiFlux advertises Claude rates at 85% of Anthropic's list price. For example, Claude Sonnet 5 is listed at **$1.70 input / $8.50 output per MTok** (vs. $2/$10 first-party), and Opus 5 at **$4.25 / $21.25** (vs. $5/$25). These are vendor-published gateway rates, not Anthropic first-party prices — confirm the current rates on [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic) before committing. A gateway may also add its own fees, markup, or operational terms; verify cache, tool, and failover billing separately.
+
 ### Does a Claude API gateway change Anthropic's official prices?
 
-A gateway may add its own fees, markup, currency conversion, or operational terms. Confirm the gateway's current pricing and usage accounting separately. ApiFlux is described in this article as a routing and management option, not as proof of lower underlying Anthropic rates.
+No. Anthropic's official first-party rates remain unchanged. A gateway such as ApiFlux sets its own per-token prices (advertised at 85% of list) and may add routing, failover, or unified-billing value on top. The two are separate billing arrangements.
 
 ### Are Claude API prices the same on Bedrock and Vertex AI?
 
