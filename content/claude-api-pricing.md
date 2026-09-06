@@ -163,6 +163,8 @@ For reproducible applications, record the exact model ID, prompt version, tool c
 
 ![Claude API decision router — sync vs batch/caching, then Haiku/Sonnet/Opus by predictability](../assets/section-decision-router-1280x720.png)
 
+At ApiFlux, we route Claude workloads across Anthropic, Bedrock, and Vertex channels in production. Our evaluation practice is a representative 15–30 task set with executable success criteria, repeated runs, and cost-per-accepted-result tracking — the same framework in our [best LLMs for coding 2026 guide](https://apiflux.ai/blog/best-llm-for-coding). Token price is an input to that decision, never the decision itself.
+
 **Decision tree:**
 
 ```text
@@ -420,6 +422,8 @@ Where to start:
 > - [See how to run Claude Code through ApiFlux →](https://apiflux.ai/docs/claude-code)
 
 ## Monthly cost examples and sensitivity
+
+These examples are illustrative calculations based on published rates. In production, the ApiFlux team tracks **cost per accepted result** across routed workloads — including retries, tool calls, and review burden — not just token spend. See our [best LLMs for coding 2026 guide](https://apiflux.ai/blog/best-llm-for-coding) for the full evaluation methodology.
 
 The illustrative monthly estimates below use the base rates above, before cache and batch effects:
 

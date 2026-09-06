@@ -213,6 +213,7 @@
 <p>Model IDs and availability can differ by platform. Anthropic uses a dateless model-ID format for the 4.6 generation and later (for example, <code>claude-opus-5</code>), and each ID is a pinned snapshot, not an evergreen pointer — see <a href="https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions">model IDs and versioning</a>. Do not copy a model ID from an old article without checking the current <a href="https://platform.claude.com/docs/en/models/overview">Models API</a> and lifecycle documentation.</p>
 
 <h3>How to choose the right Claude model</h3>
+<p>At ApiFlux, we route Claude workloads across Anthropic, Bedrock, and Vertex channels in production. Our evaluation practice is a representative 15–30 task set with executable success criteria, repeated runs, and cost-per-accepted-result tracking — the same framework in our <a href="https://apiflux.ai/blog/best-llm-for-coding">best LLMs for coding 2026 guide</a>. Token price is an input to that decision, never the decision itself.</p>
 <pre>Do you need a response immediately?
 ├── Yes → Use the synchronous Messages API
 └── No
@@ -367,6 +368,7 @@ response = client.messages.create(
 </div>
 
 <h2 id="monthly-cost">Monthly cost examples and sensitivity</h2>
+<p>These examples are illustrative calculations based on published rates. In production, the ApiFlux team tracks <strong>cost per accepted result</strong> across routed workloads — including retries, tool calls, and review burden — not just token spend. See our <a href="https://apiflux.ai/blog/best-llm-for-coding">best LLMs for coding 2026 guide</a> for the full evaluation methodology.</p>
 <table>
 <tr><th>Workload</th><th>Model</th><th class="r">Requests / mo</th><th class="r">Avg in / out</th><th class="r">Monthly estimate</th></tr>
 <tr><td>High-volume classification</td><td>Haiku 4.5</td><td class="r">5,000,000</td><td class="r">1,500 / 200</td><td class="r">≈ $12,500</td></tr>
