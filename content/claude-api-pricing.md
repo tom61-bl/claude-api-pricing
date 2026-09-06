@@ -25,16 +25,13 @@ apiflux_pricing_status: "vendor_claim"
 - [Quick answer: how much does the Claude API cost?](#quick-answer-how-much-does-the-claude-api-cost)
 - [Claude API pricing calculator](#claude-api-pricing-calculator)
 - [How Claude API billing works](#how-claude-api-billing-works)
-- [Current Claude API model prices](#current-claude-api-model-prices)
-- [Which Claude model should you choose?](#which-claude-model-should-you-choose)
-- [Prompt caching costs](#prompt-caching-costs)
-- [Batch API pricing](#batch-api-pricing)
-- [Claude API pricing vs Claude subscription pricing](#claude-api-pricing-vs-claude-subscription-pricing)
-- [Claude API vs Bedrock and Vertex AI](#claude-api-vs-bedrock-and-vertex-ai)
-- [Claude API vs OpenAI API pricing](#claude-api-vs-openai-api-pricing)
+- [Claude API model prices and how to choose](#claude-api-model-prices-and-how-to-choose)
+- [Reducing your bill: prompt caching and Batch API](#reducing-your-bill-prompt-caching-and-batch-api)
+- [Claude API vs alternatives: subscription, cloud, and OpenAI](#claude-api-vs-alternatives-subscription-cloud-and-openai)
 - [How ApiFlux can reduce operational complexity](#how-apiflux-can-reduce-operational-complexity)
 - [Monthly cost examples and sensitivity](#monthly-cost-examples-and-sensitivity)
 - [Claude API pricing FAQ](#claude-api-pricing-faq)
+- [Next steps: estimate, compare, and start](#next-steps-estimate-compare-and-start)
 - [Sources and update history](#sources-and-update-history)
 
 **Claude API costs $1–$10 per million input tokens and $5–$50 per million output tokens** (Haiku 4.5 to Fable 5.1), as of September 4, 2026. Batch processing cuts standard rates by 50% for asynchronous workloads; prompt caching has separate write and read pricing. For teams routing through a gateway, ApiFlux advertises Claude Sonnet 5 at **$1.70 input / $8.50 output per MTok** — 85% of Anthropic's list price — though that is a vendor-published claim, not an independently audited rate. Prices are time-sensitive; recheck Anthropic's live pricing before committing to a budget.
@@ -84,7 +81,7 @@ For Anthropic's first-party Claude API, the current standard model rates are:
 | Offline bulk processing | Batch API | No real-time response |
 | One key, unified balance, multi-channel routing, and logs | A gateway such as ApiFlux | Additional dependency to verify |
 
-Anthropic's model overview positions Fable 5.1 for demanding reasoning, Opus 5 for complex agentic coding and enterprise work, Sonnet 5 for a speed–intelligence balance, and Haiku 4.5 for the lowest latency and price. Those are **vendor positioning statements**, not independent benchmark results. For a production decision, test representative prompts with your own data.
+Anthropic's [model overview](https://platform.claude.com/docs/en/models/overview) positions Fable 5.1 for demanding reasoning, Opus 5 for complex agentic coding and enterprise work, Sonnet 5 for a speed–intelligence balance, and Haiku 4.5 for the lowest latency and price. Those are **vendor positioning statements**, not independent benchmark results. For a production decision, test representative prompts with your own data.
 
 The prices above cover standard first-party token usage. Your actual cost can also include:
 
@@ -140,7 +137,7 @@ A Claude API request with tools is not priced only on the visible user question.
 
 When estimating a tool-using application, record at least: user and system input tokens, tool-definition tokens, tool-result tokens, search or other server-tool calls, output tokens, retries and failed tool loops, cache writes and reads, and human review or downstream processing. A model that appears inexpensive in a chat-only test can have a very different cost profile once it is connected to search, code execution, retrieval, or a multi-step agent loop.
 
-## Current Claude API model prices
+## Claude API model prices and how to choose
 
 The following table summarizes the principal current models listed in Anthropic's [model overview](https://platform.claude.com/docs/en/models/overview) and [pricing documentation](https://platform.claude.com/docs/en/about-claude/pricing). Prices are **first-party Claude API base rates**, checked on September 4, 2026.
 
@@ -162,7 +159,7 @@ Model IDs and availability can differ by platform. Anthropic uses a dateless mod
 
 For reproducible applications, record the exact model ID, prompt version, tool configuration, date, and evaluation results. A model alias or a partner-cloud deployment name may not behave like the first-party Claude API identifier.
 
-## Which Claude model should you choose?
+### How to choose the right Claude model
 
 ![Claude API decision router — sync vs batch/caching, then Haiku/Sonnet/Opus by predictability](../assets/section-decision-router-1280x720.png)
 
@@ -231,7 +228,7 @@ Is the task predictable and easy to validate?
 
 **What to measure:** Task-level success on the specific workloads where cheaper models fail, plus availability and access. Limited-availability or changing-preview products should not be treated as universally accessible production dependencies.
 
-## Prompt caching costs
+## Reducing your bill: prompt caching and Batch API
 
 Prompt caching reduces the cost of repeatedly sending the same prompt prefix, such as a large system instruction, reference document, tool definition set, or conversation history. It is most useful when the stable content is large and reused within the cache time-to-live. Anthropic's [prompt caching documentation](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) lists these standard cache multipliers relative to the model's base input price:
 
@@ -267,7 +264,7 @@ variable user question
 
 Changing content before the breakpoint can invalidate the cached segment. A cache strategy should therefore be tested with the same request shape used in production, not only with a small demonstration prompt.
 
-## Batch API pricing
+### Batch API: 50% off for asynchronous work
 
 Anthropic's [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) is designed for large volumes of requests that do not need an immediate response. The official documentation says it provides a **50% discount versus standard API pricing** and processes requests asynchronously.
 
@@ -290,11 +287,15 @@ Anthropic's [Message Batches API](https://platform.claude.com/docs/en/build-with
 | Limits | Model rate limits | 100,000 requests or 256 MB per batch; must complete within 24 hours |
 | Result handling | Inline response | JSONL file, results downloadable for 29 days |
 
+*Source: [Anthropic Message Batches documentation](https://platform.claude.com/docs/en/build-with-claude/batch-processing), checked September 4, 2026.*
+
 Treat the batch figures as calculated examples based on the published 50% discount, not a universal quote for every platform or billing arrangement. Prompt caching and other pricing modifiers interact with batch pricing.
 
 The Batch API also has operational constraints. Requests are processed independently, results are **not guaranteed to preserve input order**, and streaming, fast mode, and `max_tokens: 0` are not supported. Use unique `custom_id` values and build a result-matching strategy around those IDs. For a gateway that supports both synchronous and asynchronous Claude workloads across multiple channels, see the [ApiFlux setup guide](https://apiflux.ai/docs/setup).
 
-## Claude API pricing vs Claude subscription pricing
+## Claude API vs alternatives: subscription, cloud, and OpenAI
+
+### vs Claude subscription pricing
 
 The Claude **API** is pay-as-you-go: you are billed for the tokens and features your application uses. It is not a prepaid bundle of a consumer or team subscription, and a subscription should not be treated as prepaid API credits.
 
@@ -308,7 +309,7 @@ The Claude **API** is pay-as-you-go: you are billed for the tokens and features 
 
 Separate Claude consumer or team plans (for example, the chat/desktop subscription tiers) buy product access, not API capacity. If you are building an application, plan for API token costs, spend limits, and rate limits separately from any Claude subscription you hold.
 
-## Claude API vs Bedrock and Vertex AI
+### vs cloud platforms: Bedrock and Vertex AI
 
 The prices in this article refer to the **first-party Claude API** unless a section says otherwise. They should not automatically be applied to Amazon Bedrock, Google Cloud Vertex AI, Microsoft Foundry, Claude Platform on AWS, resellers, gateways, or other API providers.
 
@@ -327,7 +328,7 @@ Partner platforms can use different billing units, regional pricing, model IDs, 
 4. Verify the exact model ID and availability.
 5. Compare a fixed workload with identical success criteria. A gateway such as ApiFlux can abstract these platform differences behind one key and one balance — browse the [full model catalog](https://apiflux.ai/models) to see which channels each model supports.
 
-## Claude API vs OpenAI API pricing
+### vs OpenAI API pricing
 
 If you are choosing between Claude and OpenAI models for a production workload, normalize the comparison by **cost per accepted result**, not by sticker price alone. The table below compares representative first-party rates; OpenAI prices are approximate as of mid-2026 and should be verified against [OpenAI's current pricing page](https://openai.com/api/pricing/) before procurement.
 
@@ -522,11 +523,14 @@ It depends on the model pair and your workload. GPT-4o-mini undercuts Claude Hai
 
 ## Next steps: estimate, compare, and start
 
-1. **Estimate your monthly bill** with the [interactive Claude API cost calculator](claude-api-cost-calculator.html) — input your request volume, token sizes, cache hit rate, and Batch usage.
-2. **Compare listed prices** across every Claude model on the [ApiFlux Claude model page](https://apiflux.ai/models/anthropic), including vendor-listed 85%-of-list rates.
-3. **Create an API key** on the [Keys page](https://apiflux.ai/keys) — ApiFlux currently advertises a $1 starting credit with no credit card required.
-4. **Follow the quickstart** to make your first call, or read the [setup guide](https://apiflux.ai/docs/setup) and [FAQ](https://apiflux.ai/docs/faq) for configuration details.
-5. **Explore related guides:** [best LLMs for coding in 2026](https://apiflux.ai/blog/best-llm-for-coding) and [Qwen3-8 release window prep](https://apiflux.ai/blog/qwen3-8-release-window-prep) on the ApiFlux blog.
+> **Ready to start routing Claude API?**
+>
+> **[Create an API key on ApiFlux](https://apiflux.ai/keys)** — $1 starting credit, no credit card required.
+
+1. [Estimate your monthly bill](#claude-api-pricing-calculator) with the interactive calculator above.
+2. [Compare listed Claude model prices](https://apiflux.ai/models/anthropic), including vendor-listed 85%-of-list rates.
+3. [Follow the quickstart](https://apiflux.ai/docs/setup) or read the [setup guide](https://apiflux.ai/docs/setup) and [FAQ](https://apiflux.ai/docs/faq).
+4. Explore related guides: [best LLMs for coding in 2026](https://apiflux.ai/blog/best-llm-for-coding) and [Qwen3-8 release window prep](https://apiflux.ai/blog/qwen3-8-release-window-prep).
 
 ## Sources and update history
 
