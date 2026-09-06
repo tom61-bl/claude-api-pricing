@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -53,7 +53,7 @@
     {"@type":"Question","name":"Does a Claude API gateway change Anthropic's official prices?","acceptedAnswer":{"@type":"Answer","text":"No. Anthropic's official first-party rates remain unchanged. A gateway sets its own per-token prices; the two are separate billing arrangements."}},
     {"@type":"Question","name":"Are Claude API prices the same on Bedrock and Vertex AI?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Cloud marketplaces can have different pricing, billing units, model IDs, regional rules, availability, and lifecycle policies."}},
     {"@type":"Question","name":"How much does Claude API cost per token?","acceptedAnswer":{"@type":"Answer","text":"Per-token cost is the per-MTok rate divided by one million. Claude Haiku 4.5 at $1/$5 per MTok costs roughly $0.000001 per input token and $0.000005 per output token. Sonnet 5 at $2/$10 costs $0.000002 input and $0.00001 output."}},
-    {"@type":"Question","name":"Is Claude API cheaper than OpenAI?","acceptedAnswer":{"@type":"Answer","text":"It depends on the model pair and workload. GPT-4o-mini undercuts Claude Haiku 4.5 on raw token price, but Claude Sonnet 5 and Opus 5 offer a 1M-token context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-4o are close on sticker price; the real difference comes down to task success rate, output length, and tool reliability on your own evaluation set."}}
+    {"@type":"Question","name":"Is Claude API cheaper than OpenAI?","acceptedAnswer":{"@type":"Answer","text":"It depends on the model pair and workload. GPT-5.6 Luna undercuts Claude Haiku 4.5 on raw token price, but Claude Sonnet 5 and Opus 5 offer a 1M-token context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-5.6 Terra are close on sticker price; the real difference comes down to task success rate, output length, and tool reliability on your own evaluation set."}}
   ]
 }
 </script>
@@ -150,7 +150,7 @@
 <tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">$1.70 / $8.50</td><td class="r">−15%</td><td>Anthropic</td></tr>
 <tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">$0.85 / $4.25</td><td class="r">−15%</td><td>Anthropic</td></tr>
 </table>
-<p class="src-note">Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from <a href="https://apiflux.ai/models/anthropic">apiflux.ai/models/anthropic</a>, checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks.</p>
+<p class="src-note">Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from <a href="https://apiflux.ai/models/anthropic">apiflux.ai/models/anthropic</a>, checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks. Note: ApiFlux currently lists <strong>Claude Fable 5</strong> (.50/.50), while Anthropic's flagship is <strong>Claude Fable 5.1</strong> (/) — distinct model generations; the Fable row compares ApiFlux's Fable 5 against Anthropic's Fable 5.1 list price for reference only.</p>
 
 <h3>Quick decision — what should you start with?</h3>
 <table>
@@ -201,11 +201,11 @@
 <h2 id="model-prices">Claude API model prices and how to choose</h2>
 <table>
 <tr><th>Model</th><th>API ID</th><th class="r">Input / output per MTok</th><th class="r">Context window</th><th class="r">Max output</th></tr>
-<tr><td>Claude Fable 5.1</td><td><code>claude-fable-5-1</code></td><td class="r">$10 / $50</td><td class="r">1M</td><td class="r">128K</td></tr>
-<tr><td>Claude Opus 5</td><td><code>claude-opus-5</code></td><td class="r">$5 / $25</td><td class="r">1M</td><td class="r">128K</td></tr>
+<tr><td>Claude Fable 5.1</td><td><code>claude-fable-5-1</code></td><td class="r">$10 / $50</td><td class="r">1M</td><td class="r">1.05M</td></tr>
+<tr><td>Claude Opus 5</td><td><code>claude-opus-5</code></td><td class="r">$5 / $25</td><td class="r">1M</td><td class="r">1.05M</td></tr>
 <tr><td>Claude Opus 4.8</td><td><code>claude-opus-4-8</code></td><td class="r">$5 / $25</td><td class="r">200K</td><td class="r">64K</td></tr>
 <tr><td>Claude Opus 4.7</td><td><code>claude-opus-4-7</code></td><td class="r">$5 / $25</td><td class="r">200K</td><td class="r">64K</td></tr>
-<tr><td>Claude Sonnet 5</td><td><code>claude-sonnet-5</code></td><td class="r">$2 / $10</td><td class="r">1M</td><td class="r">128K</td></tr>
+<tr><td>Claude Sonnet 5</td><td><code>claude-sonnet-5</code></td><td class="r">$2 / $10</td><td class="r">1M</td><td class="r">1.05M</td></tr>
 <tr><td>Claude Sonnet 4.6</td><td><code>claude-sonnet-4-6</code></td><td class="r">$3 / $15</td><td class="r">200K</td><td class="r">64K</td></tr>
 <tr><td>Claude Haiku 4.5</td><td><code>claude-haiku-4-5-20251001</code></td><td class="r">$1 / $5</td><td class="r">200K</td><td class="r">64K</td></tr>
 </table>
@@ -308,18 +308,18 @@ Is the task predictable and easy to validate?
 <p>Partner platforms can use different billing units, regional pricing, model IDs, availability rules, and retirement schedules. Normalize the comparison before choosing: use the same model generation, confirm which categories are priced, check taxes and regional multipliers, verify the exact model ID, and compare a fixed workload with identical success criteria. A gateway such as ApiFlux can abstract these platform differences behind one key and one balance — browse the <a href="https://apiflux.ai/models">full model catalog</a> to see which channels each model supports.</p>
 
 <h3>vs OpenAI API pricing</h3>
-<p>If you are choosing between Claude and OpenAI models, normalize the comparison by <strong>cost per accepted result</strong>, not sticker price alone. The table below compares representative first-party rates; OpenAI prices are approximate as of mid-2026 and should be verified against <a href="https://openai.com/api/pricing/">OpenAI's current pricing page</a> before procurement.</p>
+<p>If you are choosing between Claude and OpenAI models, normalize the comparison by <strong>cost per accepted result</strong>, not sticker price alone. The table below compares representative first-party rates; OpenAI GPT-5.6 prices are promotional through at least November 21, 2026 (verified in the ApiFlux best-LLM-for-coding guide, August 27, 2026); prompts over 272K input tokens are billed at 2x input / 1.5x output and should be verified against <a href="https://openai.com/api/pricing/">OpenAI's current pricing page</a> before procurement.</p>
 <table>
 <tr><th>Model family</th><th class="r">Input / output per MTok</th><th class="r">Context window</th><th>Best treated as</th></tr>
 <tr><td>Claude Haiku 4.5</td><td class="r">$1 / $5</td><td class="r">200K</td><td>High-volume, low-latency tasks</td></tr>
-<tr><td>GPT-4o-mini (OpenAI)</td><td class="r">~$0.15 / ~$0.60</td><td class="r">128K</td><td>Cheapest high-volume option</td></tr>
+<tr><td>GPT-5.6 Luna (OpenAI)</td><td class="r">~$0.15 / ~$0.60</td><td class="r">1.05M</td><td>Cost-sensitive, high-volume</td></tr>
 <tr><td>Claude Sonnet 5</td><td class="r">$2 / $10</td><td class="r">1M</td><td>General-purpose balance</td></tr>
-<tr><td>GPT-4o (OpenAI)</td><td class="r">~$2.50 / ~$10</td><td class="r">128K</td><td>General-purpose multimodal</td></tr>
+<tr><td>GPT-5.6 Terra (OpenAI)</td><td class="r">~$2.50 / ~$10</td><td class="r">1.05M</td><td>Balanced coding and tool use</td></tr>
 <tr><td>Claude Opus 5</td><td class="r">$5 / $25</td><td class="r">1M</td><td>Complex coding and agents</td></tr>
-<tr><td>o-series (OpenAI)</td><td class="r">~$15 / ~$60</td><td class="r">varies</td><td>Reasoning-intensive tasks</td></tr>
+<tr><td>GPT-5.6 Sol (OpenAI)</td><td class="r">~$15 / ~$60</td><td class="r">varies</td><td>Complex reasoning, tool-heavy coding</td></tr>
 </table>
-<p class="src-note">Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI rates are approximate and time-sensitive — verify at openai.com/api/pricing.</p>
-<p><strong>Key differences that affect the real bill:</strong> Claude Sonnet 5 and Opus 5 offer a 1M-token context; comparable OpenAI models typically cap at 128K–200K. Both platforms offer cached-input discounts and batch discounts, but rates differ by model. Output token behavior also varies — a 20% output-length difference can outweigh a 15% input-price gap. For general-purpose work, Sonnet 5 ($2/$10) and GPT-4o are close on sticker price; the decision should come down to task success rate, output length, and tool reliability on your own evaluation set.</p>
+<p class="src-note">Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI GPT-5.6 rates from ApiFlux best-LLM-for-coding guide (Aug 27, 2026), promotional through Nov 21, 2026 — verify at openai.com/api/pricing.</p>
+<p><strong>Key differences that affect the real bill:</strong> Claude Sonnet 5 and Opus 5 offer a 1M-token context; comparable OpenAI models typically cap at 1.05M–200K. Both platforms offer cached-input discounts and batch discounts, but rates differ by model. Output token behavior also varies — a 20% output-length difference can outweigh a 15% input-price gap. For general-purpose work, Sonnet 5 ($2/$10) and GPT-5.6 Terra are close on sticker price; the decision should come down to task success rate, output length, and tool reliability on your own evaluation set.</p>
 
 <h2 id="apiflux">How ApiFlux can reduce operational complexity</h2>
 <div class="disclosure"><strong>Commercial disclosure:</strong> ApiFlux is mentioned because it operates the publishing project. The pricing, feature, and discount statements in this section are <strong>vendor-published claims</strong>, not independent benchmark results. Verify them before making procurement decisions.</div>
@@ -357,7 +357,7 @@ ApiFlux gateway
 
 client = Anthropic(
     api_key="your-apiflux-key",
-    base_url="https://api.apiflux.ai",
+    base_url="https://apiflux.ai",
 )
 
 response = client.messages.create(
@@ -425,7 +425,7 @@ Cached estimate:                                ≈ $6,930 / month</pre>
 <li><strong>Does a gateway change Anthropic's prices?</strong> No. Anthropic's official first-party rates remain unchanged. A gateway sets its own per-token prices and may add routing or failover value; the two are separate billing arrangements.</li>
 <li><strong>Are prices the same on Bedrock and Vertex AI?</strong> Not necessarily; compare each platform's own official documentation.</li>
 <li><strong>How much does Claude API cost per token?</strong> Per-token cost is the per-MTok rate divided by one million. Haiku 4.5 at $1/$5 per MTok costs roughly $0.000001 per input token and $0.000005 per output token; Sonnet 5 at $2/$10 costs $0.000002 input and $0.00001 output. Most production bills are easier to estimate at the MTok level.</li>
-<li><strong>Is Claude API cheaper than OpenAI?</strong> It depends on the model pair and workload. GPT-4o-mini undercuts Haiku 4.5 on raw token price, but Claude Sonnet 5 and Opus 5 offer a 1M-token context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-4o are close on sticker price — the real difference comes down to task success rate, output length, and tool reliability. See the <a href="#vs-openai">Claude vs OpenAI pricing</a> section.</li>
+<li><strong>Is Claude API cheaper than OpenAI?</strong> It depends on the model pair and workload. GPT-5.6 Luna undercuts Haiku 4.5 on raw token price, but Claude Sonnet 5 and Opus 5 offer a 1M-token context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-5.6 Terra are close on sticker price — the real difference comes down to task success rate, output length, and tool reliability. See the <a href="#vs-openai">Claude vs OpenAI pricing</a> section.</li>
 </ol>
 
 <h2>Next steps: estimate, compare, and start</h2>
