@@ -109,6 +109,7 @@
   </div>
 
   <div class="results" id="results"></div>
+  <button id="copyBtn" style="margin-top:16px;padding:10px 20px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Copy estimate</button>
 
   <p class="note">
     Method: base input cost = requests × input tokens ÷ 1,000,000 × input rate; base output cost likewise.
@@ -195,6 +196,16 @@
     return '<div class="metric '+(primary?'primary':'')+' '+(cls||'')+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+s+'</div></div>';
   }
 
+  function copyEstimate(){
+    var m=MODELS[$id('model').value],requests=num('requests'),avgIn=num('avgIn')+num('toolTokens'),avgOut=num('avgOut'),cacheHit=num('cacheHit')/100,retry=num('retry')/100,success=num('success')/100,batch=$id('batch').checked,apiflux=$id('apiflux').checked;
+    var dir={in:m.in,out:m.out,cr:m.cacheRead};if(batch){dir.in=m.batchIn;dir.out=m.batchOut;}
+    var a={in:m.in*APIFLUX_DISCOUNT,out:m.out*APIFLUX_DISCOUNT,cr:m.cacheRead*APIFLUX_DISCOUNT};if(batch){a.in=m.batchIn*APIFLUX_DISCOUNT;a.out=m.batchOut*APIFLUX_DISCOUNT;}
+    var dTotal=modelTotal(dir,requests,avgIn,avgOut,cacheHit,retry,num('searches')),aTotal=modelTotal(a,requests,avgIn,avgOut,cacheHit,retry,num('searches'));
+    var activeTotal=apiflux?aTotal:dTotal,diff=dTotal-aTotal,accepted=requests*success,perAccepted=accepted>0?activeTotal/accepted:0;
+    var text="Claude API Cost Estimate\nModel: "+m.name+"\nRequests/month: "+requests.toLocaleString()+"\nAvg input: "+avgIn+" tokens, output: "+avgOut+" tokens\nCache hit: "+(cacheHit*100)+"%, Retry: "+(retry*100)+"%, Success: "+(success*100)+"%\n"+(batch?"Batch API: yes\n":"")+"Direct Anthropic: "+money(dTotal)+"/month\n"+(apiflux?"ApiFlux listed: "+money(aTotal)+"/month\n":"")+"Saving vs first-party: "+money(Math.abs(diff))+"/month\nCost per accepted result: "+money(perAccepted);
+    navigator.clipboard.writeText(text).then(function(){var b=$id('copyBtn');b.textContent="Copied!";setTimeout(function(){b.textContent="Copy estimate";},1500);});
+  }
+  $id('copyBtn').addEventListener('click',copyEstimate);
   var fields = ['requests','avgIn','avgOut','toolTokens','model','cacheHit','retry','success','searches','batch','apiflux'];
   fields.forEach(function(id){ var el=$id(id); el.addEventListener('input',calc); el.addEventListener('change',calc); });
   calc();
