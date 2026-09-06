@@ -68,7 +68,7 @@ For Anthropic's first-party Claude API, the current standard model rates are:
 | Claude Sonnet 5 | $2 / $10 | $1.70 / $8.50 | −15% | Anthropic |
 | Claude Haiku 4.5 | $1 / $5 | $0.85 / $4.25 | −15% | Anthropic |
 
-*Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic), checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks.*
+*Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic), checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks. Note: ApiFlux currently lists **Claude Fable 5** ($8.50/$42.50), while Anthropic's flagship is **Claude Fable 5.1** ($10/$50) — distinct model generations; the Fable row compares ApiFlux's Fable 5 against Anthropic's Fable 5.1 list price for reference only.*
 
 **Quick decision — what should you start with?**
 
@@ -345,28 +345,28 @@ Partner platforms can use different billing units, regional pricing, model IDs, 
 
 ### vs OpenAI API pricing
 
-If you are choosing between Claude and OpenAI models for a production workload, normalize the comparison by **cost per accepted result**, not by sticker price alone. The table below compares representative first-party rates; OpenAI prices are approximate as of mid-2026 and should be verified against [OpenAI's current pricing page](https://openai.com/api/pricing/) before procurement.
+If you are choosing between Claude and OpenAI models for a production workload, normalize the comparison by **cost per accepted result**, not by sticker price alone. The table below compares representative first-party rates; OpenAI GPT-5.6 prices are promotional rates through at least November 21, 2026 (verified in the [ApiFlux best-LLM-for-coding guide](https://apiflux.ai/blog/best-llm-for-coding), August 27, 2026); prompts over 272K input tokens are billed at 2x input / 1.5x output. Verify against [OpenAI's current pricing page](https://openai.com/api/pricing/) before procurement.
 
 | Model family | Input / output per MTok | Context window | Best treated as |
 |---|---:|---:|---|
 | Claude Haiku 4.5 | $1 / $5 | 200K | High-volume, low-latency tasks |
-| GPT-4o-mini (OpenAI) | ~$0.15 / ~$0.60 | 128K | Cheapest high-volume option |
+| GPT-5.6 Luna (OpenAI) | $0.20 / $1.20 | 1.05M | Cost-sensitive, high-volume |
 | Claude Sonnet 5 | $2 / $10 | 1M | General-purpose balance |
-| GPT-4o (OpenAI) | ~$2.50 / ~$10 | 128K | General-purpose multimodal |
+| GPT-5.6 Terra (OpenAI) | $2 / $12 | 1.05M | Balanced coding and tool use |
 | Claude Opus 5 | $5 / $25 | 1M | Complex coding and agents |
-| o-series (OpenAI) | ~$15 / ~$60 | varies | Reasoning-intensive tasks |
+| GPT-5.6 Sol (OpenAI) | $4 / $20 | 1.05M | Complex reasoning, tool-heavy coding |
 
-*Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI rates are approximate and time-sensitive — verify at openai.com/api/pricing.*
+*Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI GPT-5.6 rates from ApiFlux best-LLM-for-coding guide (August 27, 2026), promotional through November 21, 2026.*
 
 **Key differences that affect the real bill:**
 
-- **Context window:** Claude Sonnet 5 and Opus 5 offer a 1M-token context; comparable OpenAI models typically cap at 128K–200K. Larger context can reduce retrieval and chunking overhead.
+- **Context window:** Claude Sonnet 5 and Opus 5 offer a 1M-token context; GPT-5.6 models offer a 1.05M context window, comparable to Claude's 1M. Larger context on both sides can reduce retrieval and chunking overhead.
 - **Prompt caching:** Both platforms offer cached-input discounts. Anthropic's 5-minute cache write is 1.25× with 0.1× reads; OpenAI's cached-input discount varies by model and tier. Calculate your actual cache-hit rate before assuming either is cheaper.
 - **Batch discounts:** Anthropic offers 50% off via the Message Batches API. OpenAI offers batch discounts on select models. If your workload is asynchronous, batch can dominate the price comparison.
 - **Tool and search fees:** Both charge server-side tool usage separately. Anthropic lists web search at $10 per 1,000 searches; OpenAI's web search pricing differs by model tier.
 - **Output token behavior:** OpenAI models sometimes produce shorter or longer outputs for the same prompt. A 20% output-length difference can outweigh a 15% input-price gap.
 
-**Bottom line:** Claude Haiku 4.5 is priced above GPT-4o-mini on raw tokens, but Claude's 1M context window on Sonnet and Opus can reduce infrastructure complexity. For general-purpose work, Sonnet 5 ($2/$10) and GPT-4o (~$2.50/$10) are close on price — the decision should come down to task success rate, output length, and tool reliability on your own evaluation set, not sticker price alone.
+**Bottom line:** Claude Haiku 4.5 is priced above GPT-5.6 Luna on raw tokens, but both offer 1M+ context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-5.6 Terra ($2/$12) are close on price — the decision should come down to task success rate, output length, and tool reliability on your own evaluation set, not sticker price alone.
 
 ## How ApiFlux can reduce operational complexity
 
@@ -393,7 +393,7 @@ ApiFlux gateway
 
 This is a vendor-described routing topology. Before relying on it, test failover behavior with your own workload: confirm which channels are actually available for the model IDs you use, how routing decisions are made, whether cache and tool billing are preserved across channels, and whether a fallback changes the model behavior or regional endpoint. For more on how AI routers work and how ApiFlux compares to alternatives, see [what is an AI router](https://apiflux.ai/blog/what-is-an-ai-router) and [OpenRouter alternatives](https://apiflux.ai/blog/openrouter-alternative).
 
-**Vendor claims to treat as unverified.** ApiFlux advertises pricing at **85% of the maker's official list price** (its listed Claude prices, checked September 4, 2026, are shown below) and currently advertises a **$1 starting credit** on signup without a credit card. These are vendor-published commercial claims, not independently audited savings results. ApiFlux describes zero data retention in its public materials. Review the current privacy and retention terms before sending sensitive prompts, and test failover behavior with your own workload before relying on either claim.
+**Vendor claims to treat as unverified.** ApiFlux advertises pricing at **85% of the maker's official list price** (its listed Claude prices, checked September 4, 2026, are shown below) and currently advertises a **$1 starting credit** on signup without a credit card. These are vendor-published commercial claims, not independently audited savings results. ApiFlux describes zero data retention in its public materials — this refers to prompt and response content, not billing/routing metadata (request IDs, timestamps, token counts, and model routing are logged for invoicing and debugging). Review the current privacy and retention terms before sending sensitive prompts, and test failover behavior with your own workload before relying on either claim.
 
 | Model | Anthropic first-party (in / out per MTok) | ApiFlux listed price (in / out per MTok) |
 |---|---:|---:|
@@ -411,7 +411,7 @@ from anthropic import Anthropic
 
 client = Anthropic(
     api_key="your-apiflux-key",
-    base_url="https://api.apiflux.ai",
+    base_url="https://apiflux.ai",
 )
 
 response = client.messages.create(
@@ -540,7 +540,7 @@ Per-token cost is the per-MTok rate divided by one million. Claude Haiku 4.5 at 
 
 ### Is Claude API cheaper than OpenAI?
 
-It depends on the model pair and your workload. GPT-4o-mini undercuts Claude Haiku 4.5 on raw token price, but Claude Sonnet 5 and Opus 5 offer a 1M-token context window that can reduce retrieval and chunking costs. For general-purpose work, Sonnet 5 ($2/$10) and GPT-4o are close on sticker price — the real difference comes down to task success rate, output length, and tool reliability on your own evaluation set. See the [Claude API vs OpenAI API pricing](#claude-api-vs-openai-api-pricing) section for a full comparison.
+It depends on the model pair and your workload. GPT-5.6 Luna undercuts Claude Haiku 4.5 on raw token price, but both offer 1M+ context. For general-purpose work, Sonnet 5 ($2/$10) and GPT-5.6 Terra ($2/$12) are close on sticker price — the real difference comes down to task success rate, output length, and tool reliability on your own evaluation set. See the [Claude API vs OpenAI API pricing](#claude-api-vs-openai-api-pricing) section for a full comparison.
 
 ## Next steps: estimate, compare, and start
 
