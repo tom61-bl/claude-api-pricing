@@ -63,12 +63,12 @@ For Anthropic's first-party Claude API, the current standard model rates are:
 
 | Model | Anthropic first-party (in / out) | ApiFlux listed (in / out) | Listed difference | Active channels |
 |---|---:|---:|---:|---|
-| Claude Fable 5 | $10 / $50 | $8.50 / $42.50 | −15% | Anthropic |
+| Claude Fable 5.1 | $10 / $50 | $8.50 / $42.50 | −15% | Anthropic |
 | Claude Opus 5 | $5 / $25 | $4.25 / $21.25 | −15% | Anthropic, Bedrock, Vertex AI |
 | Claude Sonnet 5 | $2 / $10 | $1.70 / $8.50 | −15% | Anthropic |
 | Claude Haiku 4.5 | $1 / $5 | $0.85 / $4.25 | −15% | Anthropic |
 
-*Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic), checked September 4, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks. Note: ApiFlux currently lists **Claude Fable 5** ($8.50/$42.50), while Anthropic's flagship is **Claude Fable 5.1** ($10/$50) — distinct model generations; the Fable row compares ApiFlux's Fable 5 against Anthropic's Fable 5.1 list price for reference only.*
+*Source: Anthropic first-party rates from official pricing docs; ApiFlux listed rates from [apiflux.ai/models/anthropic](https://apiflux.ai/models/anthropic), checked September 7, 2026. ApiFlux figures are vendor-published claims, not independent benchmarks.*
 
 **Quick decision — what should you start with?**
 
@@ -345,7 +345,7 @@ Partner platforms can use different billing units, regional pricing, model IDs, 
 
 ### vs OpenAI API pricing
 
-If you are choosing between Claude and OpenAI models for a production workload, normalize the comparison by **cost per accepted result**, not by sticker price alone. The table below compares representative first-party rates; OpenAI GPT-5.6 prices are promotional rates through at least November 21, 2026 (verified in the [ApiFlux best-LLM-for-coding guide](https://apiflux.ai/blog/best-llm-for-coding), August 27, 2026); prompts over 272K input tokens are billed at 2x input / 1.5x output. Verify against [OpenAI's current pricing page](https://openai.com/api/pricing/) before procurement.
+If you are choosing between Claude and OpenAI models for a production workload, normalize the comparison by **cost per accepted result**, not by sticker price alone. The table below compares representative first-party rates; OpenAI GPT-5.6 prices are promotional rates through at least November 21, 2026 (from [OpenAI official pricing](https://openai.com/api/pricing/), checked September 7, 2026); prompts over 272K input tokens are billed at 2x input / 1.5x output. Verify against [OpenAI's current pricing page](https://openai.com/api/pricing/) before procurement.
 
 | Model family | Input / output per MTok | Context window | Best treated as |
 |---|---:|---:|---|
@@ -356,7 +356,7 @@ If you are choosing between Claude and OpenAI models for a production workload, 
 | Claude Opus 5 | $5 / $25 | 1M | Complex coding and agents |
 | GPT-5.6 Sol (OpenAI) | $4 / $20 | 1.05M | Complex reasoning, tool-heavy coding |
 
-*Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI GPT-5.6 rates from ApiFlux best-LLM-for-coding guide (August 27, 2026), promotional through November 21, 2026.*
+*Claude rates from Anthropic official pricing, checked September 4, 2026. OpenAI GPT-5.6 rates from [OpenAI official pricing](https://openai.com/api/pricing/), checked September 7, 2026; promotional through November 21, 2026.*
 
 **Key differences that affect the real bill:**
 
@@ -397,7 +397,7 @@ This is a vendor-described routing topology. Before relying on it, test failover
 
 | Model | Anthropic first-party (in / out per MTok) | ApiFlux listed price (in / out per MTok) |
 |---|---:|---:|
-| Claude Fable 5 | $10 / $50 | $8.50 / $42.50 |
+| Claude Fable 5.1 | $10 / $50 | $8.50 / $42.50 |
 | Claude Opus 5 | $5 / $25 | $4.25 / $21.25 |
 | Claude Sonnet 5 | $2 / $10 | $1.70 / $8.50 |
 | Claude Haiku 4.5 | $1 / $5 | $0.85 / $4.25 |
@@ -423,7 +423,7 @@ response = client.messages.create(
 
 This is an illustrative example for compatible clients. Verify the exact base URL, model ID format, authentication method, and feature support in the [ApiFlux documentation](https://apiflux.ai/docs/quickstart) before deploying.
 
-**What to verify before production use.** Confirm which Claude model IDs are supported (ApiFlux lists `Claude Fable 5` and `Claude Sonnet 5`), whether the endpoint is compatible with the Anthropic Messages API format, how input/output/cache/tool usage are reported, whether routing changes the model or deployment region, how balances, refunds, failed requests, and rate limits are handled, where request logs are stored and retained, and whether the published discount applies to every feature including cache reads and batch usage.
+**What to verify before production use.** Confirm which Claude model IDs are supported (ApiFlux lists `Claude Fable 5.1` and `Claude Sonnet 5`), whether the endpoint is compatible with the Anthropic Messages API format, how input/output/cache/tool usage are reported, whether routing changes the model or deployment region, how balances, refunds, failed requests, and rate limits are handled, where request logs are stored and retained, and whether the published discount applies to every feature including cache reads and batch usage.
 
 Where to start:
 
